@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="row">
+        <h1 class="header-text">{{ page_title }}</h1>
+    </div>
+    {% for item_part in item_contents %}
+        <!-- Draw links inline, not on a separate row -->
+        {% if 'www.' in item_part %}
+
+        {% endif %}
+        {% if '.jpg' not in item_part %}
+            <div class="row text-row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <p class="item-para">
+                        {% set word_list = item_part.split(' ') %}
+                        {% for word in word_list %}
+                            {% if 'http' in word or 'www.' in word %}
+                                <a href="{{ word }}" class="item-link" target="_blank">{{ word }}</a>
+                            {% else %}
+                                {{ word }}
+                            {% endif %}
+                        {% endfor %}
+                    </p>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+        {% else %}
+            <div class="row">
+                <img class="topic-image" src="/assets/{{ item_type }}_images/{{ page_title }}/{{ item_part }}">
+            </div>
+        {% endif %}
+    {% endfor %}
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <a href="{{ url_for(item_type + 's') }}">
+                <button type="button" class="btn btn-success back-to">
+                    Back to {{ item_type }}s list
+                </button>
+            </a>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+{% endblock %}

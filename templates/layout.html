@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        {% block head %}
+            <meta charset="UTF-8">
+            <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+            <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+            <link href="{{ url_for('static', filename='hover.css') }}" rel="stylesheet" media="all">
+            <title>
+                {% block title %}
+                    {% if title %}
+                        {{ title }}
+                    {% else %}
+                        DigitalCat
+                    {% endif %}
+                {% endblock %}
+            </title>
+        {% endblock %}
+    </head>
+    <body>
+        {% block navbar %}
+            <nav class="navbar navbar-default" id="global-navbar">
+                <div class="container-fluid">
+                    <ul class="nav navbar-nav">
+                        <li><a class="hvr-grow" href="{{ url_for('index') }}">
+                            <button type="button" class="btn btn-success btn-rmv-col">
+                                Home
+                            </button>
+                        </a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a class="hvr-grow" href="{{ url_for('projects') }}">
+                            <button type="button" class="btn btn-success btn-rmv-col">
+                                Projects
+                            </button>
+                        </a></li>
+                        <li><a class="hvr-grow" href="{{ url_for('thoughts') }}">
+                            <button type="button" class="btn btn-success btn-rmv-col">
+                                Thoughts
+                            </button>
+                        </a></li>
+                    </ul>
+                </div>
+            </nav>
+        {% endblock %}
+        {% block body %}
+            {% block default_flash %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash">{{ message }}</div>
+                {% endfor %}
+            {% endblock %}
+            <div class="container-fluid">
+                {% block content %}
+                {% endblock %}
+                <div class="row" id="footer">
+                    {% block footer %}
+                    {% endblock %}
+                </div>
+            </div>
+        {% endblock %}
+    </body>
+</html>

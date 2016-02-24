@@ -1,0 +1,168 @@
+html, body {
+  margin: 0 auto;
+  background-color: #EEEEEE;
+  color: black;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.test {
+	color: pink;
+	background-color: red;
+}
+
+.pad-one-em {
+  padding: 1em;
+}
+
+/* Navbar */
+
+#global-navbar {
+	margin: 15px;
+  background-color: #1E824C;
+  border: 0;
+  border-radius: 15px;
+}
+
+/* Others */
+
+.btn-rmv-col {
+  background-color: rgba(0, 0, 0, 0);
+  border: 0;
+}
+
+.btn-spacing {
+	margin-bottom: 3em;
+}
+
+/* Fix links */
+
+a {
+  text-decoration: none !important;  /* Remove underline for links */
+}
+
+a:link {
+	color: white;
+}
+
+a:visited {
+	color: white;
+}
+
+a:active {
+	color: green;
+}
+
+.item-link {
+	background-color: green;
+	padding: 2px;
+	color: green;
+	font-size: 80%;
+}
+
+/* All pages */
+
+.header-text {
+	text-align: center;
+	padding-top: 1em;
+	padding-bottom: 2em;
+}
+
+/* Front page */
+
+.about-me-row {
+  padding-top: 2em;
+}
+
+#about-me-para {
+  position: relative;
+  text-align: justify;
+  left: 10%;
+  font-size: 150%;
+}
+
+#contact-me-para {
+  text-align: center;
+  font-size: 150%;
+  padding-bottom: 1em;
+}
+
+#about-me-image {
+  position: relative;
+  left: 5%;
+}
+
+/* Boxes */
+
+.box {
+  background-color: #1E824C;
+  border-radius: 15px;
+  margin-bottom: 5%;
+  height: 250px;
+}
+
+.box-text {
+  position: relative;
+  font-size: 300%;
+  text-align: justify;
+  width: 70%;
+  top: 60%;
+  left: 15%;
+}
+
+.box-explanation {
+  position: relative;
+  left: 25%;
+  /* text-align: justify; */
+  font-size: 110%;
+  width: 50%;
+}
+
+.collection-box {
+	background-color: #1E824C;
+	border-radius: 15px;
+  margin-bottom: 5%;
+  height: 175px;
+}
+
+.collection-box-text {
+  width: 70%;
+  position: relative;
+  font-size: 250%;
+  top: 25%;
+  left: 15%;
+}
+
+.collection-box-explanation {
+  margin-top: 8%;
+  padding-left: 2em;
+  font-size: 150%;
+}
+
+/* Topic page */
+
+.text-row {
+  padding-top: 1em;
+  font-size: 150%;
+}
+
+.topic-image {
+  padding: 5%;
+  display: block;
+  margin:0 auto;
+  width: 50%;
+}
+
+/* Back to Button */
+
+.back-to {
+  position: relative;
+  left: 35%;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+/* Item paragraph */
+
+.item-para {
+	text-align: justify;
+}
