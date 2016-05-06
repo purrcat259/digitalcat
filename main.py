@@ -45,6 +45,7 @@ def get_file(filename):
     return send_from_directory(media_folder, filename, as_attachment=True)
 
 
+# TODO: Rename to articles
 @app.route('/thoughts')
 def thoughts():
     thoughts_list = g.db.execute('SELECT * from items WHERE type = "thought"').fetchall()
@@ -76,6 +77,7 @@ def projects():
                            items=projects_list)
 
 
+# TODO: Use names of markdown files as reference strings rather than ints
 @app.route('/project/<int:project_ref>')
 def project(project_ref):
     data = g.db.execute('SELECT * FROM items WHERE reference = "{}" AND type = "project"'.format(project_ref)).fetchall()[0]
@@ -87,7 +89,7 @@ def project(project_ref):
         page_title=data[3],
         item_contents=project_contents)
 
-
+"""
 # @basic_auth.required
 # API related routes below here
 @app.route('/charity')
@@ -209,6 +211,8 @@ def return_donation_amount_text(streamer_required):
         amount=return_string,
         marquee=False,
         gameblast=False)
+"""
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=9000, debug=True)
