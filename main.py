@@ -31,80 +31,10 @@ def index():
     return render_template('index.html', page_title='Index')
 
 
-@app.route('/admin')
-@basic_auth.required
-def admin():
-    current_items = g.db.execute('SELECT * from items').fetchall()
-    return render_template('admin.html',
-                           items=current_items)
+@app.route('/', subdomain='test')
+def test():
+    return 'test'
 
-
-@app.route('/admin/submit', methods=['GET', 'POST'])
-@basic_auth.required
-def submit():
-    form = ItemForm(request.form)
-    if request.method == 'POST':
-        """
-        print('Submitted data:\n{}\n{}\n{}\n{}\n{}\n{}'.format(
-            form.title.data,
-            form.description.data,
-            form.image.data,
-            form.content.data,
-            form.item_type.data,
-            form.publish.data,
-        ))
-        """
-        # Temporary validation:
-        data = [
-            form.title.data,
-            form.description.data,
-            form.image.data,
-            form.content.data,
-            form.item_type.data,
-            form.publish.data,
-        ]
-        valid = True
-        for item in data:
-            if item is None or len(item) == 0:
-                valid = False
-        if valid:
-            try:
-                reference = g.db.execute('SELECT * FROM items WHERE type = "{}"'.format(form.item_type.data)).fetchall()[-1]
-                reference = int(reference[1]) + 1
-                published = 0
-                if form.publish.data:
-                    published = 1
-                g.db.execute('INSERT INTO items VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)', (
-                    reference,
-                    form.item_type.data,
-                    form.title.data,
-                    form.description.data,
-                    form.image.data,
-                    form.content.data,
-                    published
-                ))
-                g.db.commit()
-            except Exception as e:
-                print('DB Error: {}'.format(e))
-                flash('DB Error: {}'.format(e))
-                return redirect(url_for('submit'))
-            else:
-                flash('Form successfully posted')
-                return redirect(url_for('admin'))
-        else:
-            flash('All fields are required')
-            return render_template('submit.html', form=form)
-    elif request.method == 'GET':
-        return render_template('submit.html', form=form)
-
-
-@app.route('/admin/delete/<item_type>/<int:item_ref>')
-@basic_auth.required
-def delete_item(item_type, item_ref):
-    print('Deleted item: Type: {} Ref: {}'.format(item_type, item_ref))
-    g.db.execute('DELETE FROM items WHERE `type` = ? AND `reference` = ?', (item_type, item_ref))
-    g.db.commit()
-    return redirect(url_for('admin'))
 
 media_folder = 'assets/'  # TODO: Fold into a config
 
@@ -158,20 +88,38 @@ def project(project_ref):
         item_contents=project_contents)
 
 
+# @basic_auth.required
 # API related routes below here
 @app.route('/charity')
 def charity():
     charity_dir = getcwd() + '/assets/charity'
     charity_files = listdir(charity_dir)
-    streamers_available = [streamer.strip('.txt') for streamer in charity_files]
+    streamers_available = [streamer.replace('.txt', '') for streamer in charity_files]
     return render_template(
         'charity.html',
         page_title='Twitch charity stream donations API',
         end_points=streamers_available)
 
 
+@app.route('/charity/gameblast')
+def return_gameblast_total():
+    gameblast_file = getcwd() + '/assets/charity/gameblast.txt'
+    try:
+        with open(gameblast_file, 'r') as file:
+            donation_amount = file.readline()
+    except FileNotFoundError:
+        return 'API ERROR: FNF'
+    donation_amount = '£' + donation_amount
+    return render_template(
+        'donation_api.html',
+        streamer='Gameblast16',
+        amount=donation_amount,
+        marquee=False,
+        gameblast=True)
+
+
 @app.route('/charity/<streamer_required>')
-def return_donation_amount(streamer_required):
+def return_donation_amounts(streamer_required):
     charity_dir = getcwd() + '/assets/charity'
     charity_files = listdir(charity_dir)
     # Get only the names of the streamers. Files should called name.txt
@@ -189,7 +137,31 @@ def return_donation_amount(streamer_required):
         'donation_api.html',
         streamer=streamer_required,
         amount=return_string,
-        marquee=False)
+        marquee=False,
+        gameblast=False)
+
+
+@app.route('/charity/<streamer_required>/total')
+def return_donation_amount_total(streamer_required):
+    charity_dir = getcwd() + '/assets/charity'
+    charity_files = listdir(charity_dir)
+    # Get only the names of the streamers. Files should called name.txt
+    streamers_available = [streamer[:len(streamer) - 4] for streamer in charity_files]  # remove the .txt without strip
+    if streamer_required not in streamers_available:
+        return 'API ERROR: Streamer endpoint not available'
+    try:
+        # re-append the .txt to access the file
+        with open(join_path(charity_dir, streamer_required + '.txt'), 'r') as file:
+            donation_amount = file.readline().split(' ')
+    except FileNotFoundError:
+        return 'API ERROR: File could not be opened'
+    return_string = '£{}'.format(donation_amount[0])
+    return render_template(
+        'donation_api.html',
+        streamer=streamer_required,
+        amount=return_string,
+        marquee=False,
+        gameblast=False)
 
 
 @app.route('/charity/<streamer_required>/marquee')
@@ -206,13 +178,38 @@ def return_donation_amount_marquee(streamer_required):
             donation_amount = file.readline().split(' ')
     except FileNotFoundError:
         return 'API ERROR: File could not be opened'
-    print(donation_amount)
     return_string = 'Donations raised: £{} Donation Goal: £{} Percentage Complete: {}%'.format(donation_amount[0], donation_amount[1], donation_amount[2])
     return render_template(
         'donation_api.html',
         streamer=streamer_required,
         amount=return_string,
-        marquee=True)
+        marquee=True,
+        gameblast=False)
+
+
+# W: 1300, H: 500
+@app.route('/charity/<streamer_required>/text')
+def return_donation_amount_text(streamer_required):
+    charity_dir = getcwd() + '/assets/charity'
+    charity_files = listdir(charity_dir)
+    # Get only the names of the streamers. Files should called name.txt
+    streamers_available = [streamer[:len(streamer) - 4] for streamer in charity_files]  # remove the .txt without strip
+    if streamer_required not in streamers_available:
+        return 'API ERROR: Streamer endpoint not available'
+    try:
+        # re-append the .txt to access the file
+        with open(join_path(charity_dir, streamer_required + '.txt'), 'r') as file:
+            donation_amount = file.readline().split(' ')
+    except FileNotFoundError:
+        return 'API ERROR: File could not be opened'
+    return_string = 'Amount raised: £{} Goal: £{} Goal completion: {}%'.format(donation_amount[0], donation_amount[1], donation_amount[2])
+    return render_template(
+        'donation_api.html',
+        streamer=streamer_required,
+        amount=return_string,
+        marquee=False,
+        gameblast=False)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='127.0.0.1', port=9000, debug=True)
+    # app.run(host='0.0.0.0', port=9000, debug=False)
