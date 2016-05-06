@@ -25,8 +25,7 @@ def get_file(filename):
     return send_from_directory(media_folder, filename, as_attachment=True)
 
 
-# TODO: Rename to articles
-@app.route('/thoughts')
+@app.route('/articles')
 def thoughts():
     thoughts_list = []
     return render_template('collection.html',
@@ -35,11 +34,11 @@ def thoughts():
                            items=thoughts_list)
 
 
-@app.route('/thought/<int:thought_ref>')
-def thought(thought_ref):
+@app.route('/article/<title>')
+def thought(article_title):
     topic_contents = []
     return render_template('item.html',
-                           item_type='thought',
+                           item_type='article',
                            page_title='',
                            item_contents=topic_contents)
 
