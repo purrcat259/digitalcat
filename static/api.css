@@ -5,13 +5,13 @@ body {
   overflow: hidden;
   text-align: center;
   outline: none;
-  color: #FFA500;
+  color: rgb(255, 0, 0);
 }
 
 .donation-text {
   font-size: 500%;
 }
 
-marquee-text {
+.marquee-text {
 	font-size: 80%;
 }
