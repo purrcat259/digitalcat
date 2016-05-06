@@ -15,17 +15,6 @@ app.config['BASIC_AUTH_PASSWORD'] = website_config.ROOT_PASSWORD
 basic_auth = BasicAuth(app)
 
 
-@app.before_request
-def before_request():
-    g.db = sqlite3.connect('db/digitalcat.db')
-
-
-@app.teardown_request
-def teardown_request(exception):
-    if hasattr(g, 'db'):
-        g.db.close()
-
-
 @app.route('/')
 def index():
     return render_template('index.html', page_title='Index')
@@ -48,8 +37,9 @@ def get_file(filename):
 # TODO: Rename to articles
 @app.route('/thoughts')
 def thoughts():
-    thoughts_list = g.db.execute('SELECT * from items WHERE type = "thought"').fetchall()
-    thoughts_list.reverse()
+    thoughts_list = []
+    # thoughts_list = g.db.execute('SELECT * from items WHERE type = "thought"').fetchall()
+    # thoughts_list.reverse()
     return render_template('collection.html',
                            page_title='Written thoughts',
                            item_type='thought',
@@ -58,9 +48,10 @@ def thoughts():
 
 @app.route('/thought/<int:thought_ref>')
 def thought(thought_ref):
-    data = g.db.execute('SELECT * FROM items WHERE reference = "{}" AND type = "thought"'.format(thought_ref)).fetchall()[0]
+    # data = g.db.execute('SELECT * FROM items WHERE reference = "{}" AND type = "thought"'.format(thought_ref)).fetchall()[0]
     # print(data)
-    topic_contents = re.split('\[(.*?)\]', data[6])
+    # topic_contents = re.split('\[(.*?)\]', data[6])
+    topic_contents = []
     return render_template('item.html',
                            item_type='thought',
                            page_title=data[3],
@@ -69,8 +60,9 @@ def thought(thought_ref):
 
 @app.route('/projects')
 def projects():
-    projects_list = g.db.execute('SELECT * FROM items WHERE type = "project"').fetchall()
-    projects_list.reverse()
+    # projects_list = g.db.execute('SELECT * FROM items WHERE type = "project"').fetchall()
+    # projects_list.reverse()
+    projects_list = []
     return render_template('collection.html',
                            page_title='Projects',
                            item_type='project',
@@ -80,13 +72,15 @@ def projects():
 # TODO: Use names of markdown files as reference strings rather than ints
 @app.route('/project/<int:project_ref>')
 def project(project_ref):
-    data = g.db.execute('SELECT * FROM items WHERE reference = "{}" AND type = "project"'.format(project_ref)).fetchall()[0]
+    # data = g.db.execute('SELECT * FROM items WHERE reference = "{}" AND type = "project"'.format(project_ref)).fetchall()[0]
     # print(data)
-    project_contents = re.split('\[(.*?)\]', data[6])
+    # project_contents = re.split('\[(.*?)\]', data[6])
+
+    project_contents = []
     return render_template(
         'item.html',
         item_type='project',
-        page_title=data[3],
+        page_title='',
         item_contents=project_contents)
 
 """
