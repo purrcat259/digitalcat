@@ -1,9 +1,7 @@
-import sqlite3
 import re
 import website_config
-from flask import Flask, render_template, send_from_directory, g, request, redirect, url_for, flash
+from flask import Flask, render_template, send_from_directory
 from flask_basicauth import BasicAuth
-from forms import ItemForm
 from os import listdir, getcwd
 from os.path import join as join_path
 
@@ -209,5 +207,5 @@ def return_donation_amount_text(streamer_required):
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=9000, debug=True)
+    app.run(host='127.0.0.1', port=9000, debug=False)
     # app.run(host='0.0.0.0', port=9000, debug=False)
