@@ -1,16 +1,9 @@
-import re
-import website_config
+import markdown
 from flask import Flask, render_template, send_from_directory
-from flask_basicauth import BasicAuth
 from os import listdir, getcwd
 from os.path import join as join_path
 
 app = Flask(__name__)
-app.secret_key = website_config.SECRET_KEY
-app.config['BASIC_AUTH_USERNAME'] = 'root'
-app.config['BASIC_AUTH_PASSWORD'] = website_config.ROOT_PASSWORD
-
-basic_auth = BasicAuth(app)
 
 
 @app.route('/')
@@ -207,5 +200,5 @@ def return_donation_amount_text(streamer_required):
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=9000, debug=False)
+    app.run(host='127.0.0.1', port=9000, debug=True)
     # app.run(host='0.0.0.0', port=9000, debug=False)
