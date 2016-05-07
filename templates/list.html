@@ -4,16 +4,16 @@
         <h1 class="header-text">{{ page_title }}</h1>
     </div>
     {% if items|length == 0 %}
-    <div class="row">
-        <h1 class="header-text">Oops... nothing here!</h1>
-    </div>
+        <div class="row">
+            <h1 class="header-text">Oops... nothing here!</h1>
+        </div>
     {% endif %}
     {% for item in items %}
-        {% if item_type == 'thought' %}
+        {% if type == 'article' %}
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-3">
-                    <a href="{{ url_for('thought', thought_ref=item[1]) }}">
+                    <a href="{{ url_for('article', title=item[1]) }}">
                         <div class="collection-box">
                             <p class="collection-box-text hvr-grow">
                                 {{ item[3] }}
@@ -28,11 +28,11 @@
                 </div>
                 <div class="col-md-3"></div>
             </div>
-        {% elif item_type == 'project' %}
+        {% elif type == 'project' %}
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-3">
-                    <a href="{{ url_for('project', project_ref=item[1]) }}">
+                    <a href="{{ url_for('project', title=item[1]) }}">
                         <div class="collection-box">
                             <p class="collection-box-text hvr-grow">
                                 {{ item[3] }}
@@ -48,7 +48,7 @@
                 <div class="col-md-3"></div>
             </div>
         {% else %}
-            <!-- TO DO -->
+            <!-- TODO for history, listing both at the same time -->
         {% endif %}
     {% endfor %}
 {% endblock %}
