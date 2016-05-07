@@ -10,8 +10,8 @@ html, body {
 	background-color: red;
 }
 
-.pad-one-em {
-  padding: 1em;
+.padded-row {
+  padding: 2em;
 }
 
 /* Navbar */
@@ -78,11 +78,9 @@ a:active {
   padding-top: 2em;
 }
 
-#about-me-para {
-  position: relative;
-  text-align: justify;
-  left: 0%;
-  font-size: 150%;
+#about-me p {
+	font-size: 200%;
+	text-align: justify;
 }
 
 #about-me-image {
