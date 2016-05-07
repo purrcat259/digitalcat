@@ -26,41 +26,39 @@ def get_file(filename):
 
 
 @app.route('/articles')
-def thoughts():
-    thoughts_list = []
-    return render_template('collection.html',
-                           page_title='Written thoughts',
-                           item_type='thought',
-                           items=thoughts_list)
+def articles():
+    article_list = []
+    return render_template('list.html',
+                           title='Articles',
+                           item_type='article',
+                           items=article_list)
 
 
 @app.route('/article/<title>')
-def thought(article_title):
-    topic_contents = []
+def article(title):
+    contents = ''
     return render_template('item.html',
-                           item_type='article',
-                           page_title='',
-                           item_contents=topic_contents)
+                           type='article',
+                           title=title,
+                           contents=contents)
 
 
 @app.route('/projects')
 def projects():
-    projects_list = []
-    return render_template('collection.html',
-                           page_title='Projects',
+    project_list = []
+    return render_template('list.html',
+                           title='Projects',
                            item_type='project',
-                           items=projects_list)
+                           items=project_list)
 
 
-# TODO: Use names of markdown files as reference strings rather than ints
-@app.route('/project/<int:project_ref>')
-def project(project_ref):
-    project_contents = []
-    return render_template(
-        'item.html',
-        item_type='project',
-        page_title='',
-        item_contents=project_contents)
+@app.route('/project/<title>')
+def project(title):
+    contents = ''
+    return render_template('item.html',
+                           type='project',
+                           title=title,
+                           contents=contents)
 
 """
 # @basic_auth.required
