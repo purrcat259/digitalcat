@@ -2,8 +2,23 @@
 {% block body %}
 <div class="container-fluid">
     <!-- Introduction row -->
-    <div class="row pad-one-em">
+    <div class="row padded-row">
+        <!-- Spacer -->
+        <div class="col-md-2"></div>
+        <!-- Personal statement -->
+        <div id="about-me" class="col-md-4">
+            <p>
+                My name is Simon, I am 22 years old and I come from the island of Malta. I am a software enthusiast,
+                always thinking up new ideas for projects and prototyping them. Creativity is my passion and I am
+                currently reading for a degree in Creative Computing with the University of London.
+            </p>
+        </div>
+        <!-- Photo -->
+        <div class="col-md-4">
 
+        </div>
+        <!-- Spacer -->
+        <div class="col-md-2"></div>
         <!--
         <div class="col-md-3"></div>
         <div id="about-me-para" class="col-md-3">
@@ -13,12 +28,6 @@
                 <li>Based in Malta</li>
                 <li>Reading for BS.C in Creative Computing with University of London</li>
             </ul>
-            <p id="about-me-para" class="about-me-row">
-                My name is Simon and I am 22 years old. I come from and am based on the island of Malta. I've been using
-                computers for around 20 years. It is my tool of choice to solve nearly any problem or to make real any
-                creative idea I think up. I am reading for a degree in Creative Computing with the University of London
-                via their International Programme.
-            </p>
         </div>
         <div id="about-me-image" class="col-md-3">
             <img src="{{ url_for('static', filename='images/face.png') }}">
