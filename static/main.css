@@ -23,6 +23,11 @@ html, body {
   border-radius: 0px;
 }
 
+.nav-text {
+	font-size: 150%;
+	color: white;
+}
+
 /* Others */
 
 .btn-rmv-col {
@@ -76,19 +81,19 @@ a:active {
 #about-me-para {
   position: relative;
   text-align: justify;
-  left: 10%;
+  left: 0%;
   font-size: 150%;
+}
+
+#about-me-image {
+  position: relative;
+  left: 5%;
 }
 
 #contact-me-para {
   text-align: center;
   font-size: 150%;
   padding-bottom: 1em;
-}
-
-#about-me-image {
-  position: relative;
-  left: 5%;
 }
 
 /* Boxes */
