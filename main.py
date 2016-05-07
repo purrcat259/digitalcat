@@ -38,8 +38,8 @@ def articles():
 def article(title):
     contents = ''
     return render_template('item.html',
-                           type='article',
                            title=title,
+                           type='article',
                            contents=contents)
 
 
@@ -56,8 +56,8 @@ def projects():
 def project(title):
     contents = ''
     return render_template('item.html',
-                           type='project',
                            title=title,
+                           type='project',
                            contents=contents)
 
 """
