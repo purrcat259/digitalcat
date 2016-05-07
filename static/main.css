@@ -83,9 +83,9 @@ a:active {
 	text-align: justify;
 }
 
-#about-me-image {
-  position: relative;
-  left: 5%;
+#about-me img {
+	position: relative;
+	left: 25%;
 }
 
 #contact-me-para {

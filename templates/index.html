@@ -2,11 +2,11 @@
 {% block body %}
 <div class="container-fluid">
     <!-- Introduction row -->
-    <div class="row padded-row">
+    <div class="row padded-row" id="about-me">
         <!-- Spacer -->
         <div class="col-md-2"></div>
         <!-- Personal statement -->
-        <div id="about-me" class="col-md-4">
+        <div class="col-md-5">
             <p>
                 My name is Simon, I am 22 years old and I come from the island of Malta. I am a software enthusiast,
                 always thinking up new ideas for projects and prototyping them. Creativity is my passion and I am
@@ -14,26 +14,11 @@
             </p>
         </div>
         <!-- Photo -->
-        <div class="col-md-4">
-
+        <div class="col-md-3">
+            <img src="{{ url_for('static', filename='images/face.png') }}">
         </div>
         <!-- Spacer -->
         <div class="col-md-2"></div>
-        <!--
-        <div class="col-md-3"></div>
-        <div id="about-me-para" class="col-md-3">
-            <ul>
-                <li>Simon Agius Muscat</li>
-                <li>22 years old</li>
-                <li>Based in Malta</li>
-                <li>Reading for BS.C in Creative Computing with University of London</li>
-            </ul>
-        </div>
-        <div id="about-me-image" class="col-md-3">
-            <img src="{{ url_for('static', filename='images/face.png') }}">
-        </div>
-        <div class="col-md-3"></div>
-        -->
     </div>
     <!-- Contact row -->
     <div class="row">
