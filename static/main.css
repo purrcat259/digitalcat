@@ -98,8 +98,8 @@ a:active {
 
 .box {
   background-color: #1E824C;
-  margin-bottom: 5%;
   height: 250px;
+  margin-bottom: 5%;
 }
 
 .box-text {
@@ -112,11 +112,12 @@ a:active {
 }
 
 .box-explanation {
+	color: white;
+	background-color: #379663;
   position: relative;
-  left: 25%;
   text-align: center;
   font-size: 150%;
-  width: 50%;
+  padding: 2em;
 }
 
 .collection-box {

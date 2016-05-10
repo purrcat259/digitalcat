@@ -41,41 +41,51 @@
         <div class="col-md-4">
             <div class="box">
                 <a href="{{ url_for('projects') }}">
-                    <p class="box-text hvr-float">My projects</p>
+                    <p class="box-text hvr-float">Projects</p>
                 </a>
             </div>
-            <p class="box-explanation">
-                Information about my personal project portfolio
-            </p>
+                <p class="box-explanation">
+                    Information about my personal project portfolio
+                </p>
         </div>
         <!-- Spacer -->
         <div class="col-md-4"></div>
     </div>
-    <div class="row">
-        <!--
-        <div class="col-md-2"></div>
-        <div class="col-md-4">
-            <div class="box">
-                <a href="{{ url_for('projects') }}">
-                    <p class="box-text hvr-float">Projects</p>
-                </a>
-            </div>
-            <p class="box-explanation">
-                Information and updates about my current ongoing personal projects.
-            </p>
-        </div>
+    <!-- Articles Row -->
+    <div class="row padded-row">
+        <!-- Spacer -->
+        <div class="col-md-4"></div>
+        <!-- Box -->
         <div class="col-md-4">
             <div class="box">
                 <a href="{{ url_for('articles') }}">
                     <p class="box-text hvr-float">Articles</p>
                 </a>
             </div>
-            <p class="box-explanation">
-                Thoughts I write down. Could be opinion, observations or a summary of an experience/project.
-            </p>
+                <p class="box-explanation">
+                    Thoughts I write down
+                </p>
         </div>
-        <div class="col-md-2"></div>
-        -->
+        <!-- Spacer -->
+        <div class="col-md-4"></div>
+    </div>
+    <!-- Projects Row -->
+    <div class="row padded-row">
+        <!-- Spacer -->
+        <div class="col-md-4"></div>
+        <!-- Box -->
+        <div class="col-md-4">
+            <div class="box">
+                <a href="{{ url_for('projects') }}">
+                    <p class="box-text hvr-float">Projects</p>
+                </a>
+            </div>
+                <p class="box-explanation">
+                    Information about my personal project portfolio
+                </p>
+        </div>
+        <!-- Spacer -->
+        <div class="col-md-4"></div>
     </div>
 </div>
 {% endblock %}
