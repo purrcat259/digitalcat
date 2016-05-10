@@ -121,10 +121,9 @@ a:active {
 }
 
 .collection-box {
+	padding: 2em;
 	background-color: #1E824C;
-	border-radius: 15px;
   margin-bottom: 5%;
-  height: 175px;
 }
 
 .collection-box-text {

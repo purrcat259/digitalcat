@@ -9,41 +9,31 @@
         </div>
     {% endif %}
     {% for item in items %}
-        {% if type == 'article' %}
+        {% if item_type == 'article' %}
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-3">
-                    <a href="{{ url_for('article', title=item[1]) }}">
+                    <a href="{{ url_for('article', title=item) }}">
                         <div class="collection-box">
                             <p class="collection-box-text hvr-grow">
-                                {{ item[3] }}
+                                {{ item }}
                             </p>
                         </div>
                     </a>
                 </div>
-                <div class="col-md-3">
-                    <p class="collection-box-explanation">
-                        {{ item[4] }}
-                    </p>
-                </div>
-                <div class="col-md-3"></div>
+                <div class="col-md-6"></div>
             </div>
-        {% elif type == 'project' %}
+        {% elif item_type == 'project' %}
             <div class="row">
                 <div class="col-md-3"></div>
-                <div class="col-md-3">
-                    <a href="{{ url_for('project', title=item[1]) }}">
+                <div class="col-md-6">
+                    <a href="{{ url_for('project', title=item) }}">
                         <div class="collection-box">
                             <p class="collection-box-text hvr-grow">
-                                {{ item[3] }}
+                                {{ item }}
                             </p>
                         </div>
                     </a>
-                </div>
-                <div class="col-md-3">
-                    <p class="collection-box-explanation">
-                        {{ item[4] }}
-                    </p>
                 </div>
                 <div class="col-md-3"></div>
             </div>

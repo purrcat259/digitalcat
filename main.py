@@ -1,9 +1,15 @@
 import markdown
+import os
 from flask import Flask, render_template, send_from_directory
-from os import listdir, getcwd
-from os.path import join as join_path
 
 app = Flask(__name__)
+
+
+def build_text_list(sub_folder=''):
+    path = os.path.join(os.getcwd(), 'static', 'text', sub_folder)
+    files = os.listdir(path=path)
+    # file_paths = [os.path.join(os.getcwd(), 'static', 'text', sub_folder, name) for name in files]
+    return files
 
 
 @app.route('/')
@@ -45,11 +51,12 @@ def article(title):
 
 @app.route('/projects')
 def projects():
-    project_list = []
+    project_names = [name.replace('.md', '') for name in build_text_list(sub_folder='projects')]
+    print(project_names)
     return render_template('list.html',
                            title='Projects',
                            item_type='project',
-                           items=project_list)
+                           items=project_names)
 
 
 @app.route('/project/<title>')
