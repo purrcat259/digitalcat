@@ -87,12 +87,18 @@ a:active {
 	left: 25%;
 }
 
-/* Contact me row */
+/* Contact me colours */
 
-#contact-me-para {
-  text-align: center;
-  font-size: 150%;
-  padding-bottom: 1em;
+#contact-email {
+	background-color: #e74c3c;
+}
+
+#contact-github {
+	background-color: #42162f;
+}
+
+#contact-twitter {
+	background-color: #55acee;
 }
 
 /* Boxes */
