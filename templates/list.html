@@ -24,15 +24,18 @@
                 <div class="col-md-6"></div>
             </div>
         {% elif item_type == 'project' %}
-            <div class="row">
+            <div class="row padded-row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                    <a href="{{ url_for('project', title=item) }}">
+                    <a href="{{ url_for('project', title=item.title) }}">
                         <div class="collection-box">
                             <p class="collection-box-text hvr-grow">
-                                {{ item }}
+                                {{ item.title }}
                             </p>
                         </div>
+                        <p class="box-explanation">
+                            {{ item.description }}
+                        </p>
                     </a>
                 </div>
                 <div class="col-md-3"></div>

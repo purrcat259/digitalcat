@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
     <div class="row">
-        <h1 class="header-text">{{ page_title }}</h1>
+        <h1 class="header-text">{{ contents.title }}</h1>
     </div>
+<!--
     {% for item_part in item_contents %}
-        <!-- Draw links inline, not on a separate row -->
         {% if 'www.' in item_part %}
 
         {% endif %}
@@ -42,4 +42,5 @@
         </div>
         <div class="col-md-4"></div>
     </div>
+    -->
 {% endblock %}

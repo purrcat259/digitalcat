@@ -99,7 +99,6 @@ a:active {
 .box {
   background-color: #1E824C;
   height: 250px;
-  margin-bottom: 5%;
 }
 
 .box-text {
@@ -123,7 +122,6 @@ a:active {
 .collection-box {
 	padding: 2em;
 	background-color: #1E824C;
-  margin-bottom: 5%;
 }
 
 .collection-box-text {
@@ -132,12 +130,6 @@ a:active {
   font-size: 250%;
   top: 25%;
   left: 15%;
-}
-
-.collection-box-explanation {
-  margin-top: 8%;
-  padding-left: 2em;
-  font-size: 150%;
 }
 
 /* Topic page */

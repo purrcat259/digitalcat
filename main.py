@@ -1,15 +1,51 @@
 import markdown
 import os
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, send_from_directory, Markup
 
 app = Flask(__name__)
 
+article_data = []
+project_data = []
 
-def build_text_list(sub_folder=''):
-    path = os.path.join(os.getcwd(), 'static', 'text', sub_folder)
-    files = os.listdir(path=path)
-    # file_paths = [os.path.join(os.getcwd(), 'static', 'text', sub_folder, name) for name in files]
-    return files
+
+def cache_texts():
+    text_data = []
+    for text_type in ['articles', 'projects']:
+        path = os.path.join(os.getcwd(), 'static', 'text', text_type)
+        files = os.listdir(path=path)
+        for file in files:
+            file_path = os.path.join(os.getcwd(), 'static', 'text', text_type, file)
+            data = dict()
+            data['title'] = file.replace('.md', '')
+            data['type'] = text_type.replace('s', '')
+            data['path'] = file_path
+            with open(file_path, mode='r') as textfile:
+                text = textfile.readlines()
+                # Remove the first line and store it as the description
+                data['description'] = text.pop(0).strip()
+                # Store the rest as the contents
+                data['contents'] = ''
+                for line in text:
+                    data['contents'] += line
+                # print(data['contents'])
+                text_data.append(data)
+    global article_data
+    article_data = [data for data in text_data if data['type'] == 'article']
+    global project_data
+    project_data = [data for data in text_data if data['type'] == 'project']
+
+
+def return_requested_data(data_type='', title=''):
+    if data_type == 'article':
+        global article_data
+        for article in article_data:
+            if article['title'] == title:
+                return article
+    else:
+        global project_data
+        for project in project_data:
+            if project['title'] == title:
+                return project
 
 
 @app.route('/')
@@ -33,38 +69,38 @@ def get_file(filename):
 
 @app.route('/articles')
 def articles():
-    article_list = []
+    global article_data
+    article_names = [art['title'] for art in article_data]
     return render_template('list.html',
                            title='Articles',
                            item_type='article',
-                           items=article_list)
+                           items=article_names)
 
 
 @app.route('/article/<title>')
 def article(title):
-    contents = ''
+    contents = return_requested_data(data_type='article', title=title)
     return render_template('item.html',
                            title=title,
-                           type='article',
+                           item_type='article',
                            contents=contents)
 
 
 @app.route('/projects')
 def projects():
-    project_names = [name.replace('.md', '') for name in build_text_list(sub_folder='projects')]
-    print(project_names)
+    global project_data
     return render_template('list.html',
                            title='Projects',
                            item_type='project',
-                           items=project_names)
+                           items=project_data)
 
 
 @app.route('/project/<title>')
 def project(title):
-    contents = ''
+    contents = return_requested_data(data_type='project', title=title)
     return render_template('item.html',
                            title=title,
-                           type='project',
+                           item_type='project',
                            contents=contents)
 
 
@@ -198,5 +234,6 @@ def return_donation_amount_text(streamer_required):
 
 
 if __name__ == '__main__':
+    cache_texts()
     app.run(host='127.0.0.1', port=9000, debug=True)
     # app.run(host='0.0.0.0', port=9000, debug=False)
