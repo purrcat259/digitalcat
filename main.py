@@ -46,11 +46,17 @@ def return_requested_data(data_type='', title=''):
         for project in project_data:
             if project['title'] == title:
                 return project
+    return dict()
 
 
 @app.route('/')
 def index():
     return render_template('index.html', page_title='Index')
+
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html', page_title='Contact')
 
 
 @app.route('/', subdomain='test')
@@ -70,20 +76,23 @@ def get_file(filename):
 @app.route('/articles')
 def articles():
     global article_data
-    article_names = [art['title'] for art in article_data]
     return render_template('list.html',
                            title='Articles',
                            item_type='article',
-                           items=article_names)
+                           items=article_data)
 
 
 @app.route('/article/<title>')
 def article(title):
-    contents = return_requested_data(data_type='article', title=title)
+    data = return_requested_data(data_type='article', title=title)
+    try:
+        text = Markup(markdown.markdown(data['contents']))
+    except KeyError:
+        text = 'Article not found, try another name?'
     return render_template('item.html',
                            title=title,
                            item_type='article',
-                           contents=contents)
+                           text=text)
 
 
 @app.route('/projects')
@@ -98,16 +107,15 @@ def projects():
 @app.route('/project/<title>')
 def project(title):
     data = return_requested_data(data_type='project', title=title)
-    text = Markup(markdown.markdown(data['contents']))
+    try:
+        text = Markup(markdown.markdown(data['contents']))
+    except KeyError:
+        text = 'Project found, try another name?'
     return render_template('item.html',
                            title=title,
                            item_type='project',
                            text=text)
 
-
-@app.route('/contact')
-def contact():
-    return 'test'
 
 """
 # @basic_auth.required
