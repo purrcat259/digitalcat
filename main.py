@@ -60,6 +60,11 @@ def project(title):
                            type='project',
                            contents=contents)
 
+
+@app.route('/contact')
+def contact():
+    return 'test'
+
 """
 # @basic_auth.required
 # API related routes below here
