@@ -10,15 +10,18 @@
     {% endif %}
     {% for item in items %}
         {% if item_type == 'article' %}
-            <div class="row">
+            <div class="row padded-row">
                 <div class="col-md-3"></div>
                 <div class="col-md-3">
-                    <a href="{{ url_for('article', title=item) }}">
+                    <a href="{{ url_for('article', title=item.title) }}">
                         <div class="collection-box">
                             <p class="collection-box-text hvr-grow">
-                                {{ item }}
+                                {{ item.title }}
                             </p>
                         </div>
+                        <p class="box-explanation">
+                            {{ item.description }}
+                        </p>
                     </a>
                 </div>
                 <div class="col-md-6"></div>
