@@ -97,11 +97,12 @@ def projects():
 
 @app.route('/project/<title>')
 def project(title):
-    contents = return_requested_data(data_type='project', title=title)
+    data = return_requested_data(data_type='project', title=title)
+    text = Markup(markdown.markdown(data['contents']))
     return render_template('item.html',
                            title=title,
                            item_type='project',
-                           contents=contents)
+                           text=text)
 
 
 @app.route('/contact')

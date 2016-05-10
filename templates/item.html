@@ -1,7 +1,30 @@
 {% extends "layout.html" %}
 {% block content %}
     <div class="row">
-        <h1 class="header-text">{{ contents.title }}</h1>
+        <h1 class="header-text">{{ title }}</h1>
+    </div>
+    <div class="row">
+        <!-- Spacer -->
+        <div class="col-md-4"></div>
+        <!-- Contents -->
+        <div class="col-md-4">
+            <p>
+                {{ text }}
+            </p>
+        </div>
+        <!-- Spacer -->
+        <div class="col-md-4"></div>
+    </div>
+    <div class="row padded-row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <a href="{{ url_for(item_type + 's') }}">
+                <button type="button" class="btn btn-success back-to">
+                    Back to {{ item_type }}s list
+                </button>
+            </a>
+        </div>
+        <div class="col-md-4"></div>
     </div>
 <!--
     {% for item_part in item_contents %}
@@ -31,16 +54,6 @@
             </div>
         {% endif %}
     {% endfor %}
-    <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <a href="{{ url_for(item_type + 's') }}">
-                <button type="button" class="btn btn-success back-to">
-                    Back to {{ item_type }}s list
-                </button>
-            </a>
-        </div>
-        <div class="col-md-4"></div>
-    </div>
+
     -->
 {% endblock %}
