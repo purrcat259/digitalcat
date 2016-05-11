@@ -51,12 +51,12 @@ def return_requested_data(data_type='', title=''):
 
 @app.route('/')
 def index():
-    return render_template('index.html', page_title='Index')
+    return render_template('index.html', page_title='Digitalcat Homepage')
 
 
 @app.route('/contact')
 def contact():
-    return render_template('contact.html', page_title='Contact')
+    return render_template('contact.html', page_title='Digitalcat Contact')
 
 
 @app.route('/', subdomain='test')
@@ -77,7 +77,7 @@ def get_file(filename):
 def articles():
     global article_data
     return render_template('list.html',
-                           title='Articles',
+                           page_title='Digitalcat Articles',
                            item_type='article',
                            items=article_data)
 
@@ -99,7 +99,7 @@ def article(title):
 def projects():
     global project_data
     return render_template('list.html',
-                           title='Projects',
+                           page_title='Digitalcat Projects',
                            item_type='project',
                            items=project_data)
 
