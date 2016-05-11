@@ -3,14 +3,16 @@
     <head lang="en">
         {% block head %}
             <meta charset="UTF-8">
+            <script src="https://use.fontawesome.com/45c6f2d161.js"></script>
+            <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
             <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
             <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
             <link href="{{ url_for('static', filename='hover.css') }}" rel="stylesheet" media="all">
             <title>
                 {% block title %}
-                    {% if title %}
-                        {{ title }}
+                    {% if page_title %}
+                        {{ page_title }}
                     {% else %}
                         DigitalCat
                     {% endif %}
@@ -23,21 +25,26 @@
             <nav class="navbar navbar-default" id="global-navbar">
                 <div class="container-fluid">
                     <ul class="nav navbar-nav">
-                        <li><a class="hvr-grow" href="{{ url_for('index') }}">
+                        <li><a href="{{ url_for('index') }}">
                             <button type="button" class="btn btn-success btn-rmv-col">
-                                Home
+                                <span class="nav-text">Home</span>
                             </button>
                         </a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a class="hvr-grow" href="{{ url_for('projects') }}">
+                        <li><a href="{{ url_for('projects') }}">
                             <button type="button" class="btn btn-success btn-rmv-col">
-                                Projects
+                                <span class="nav-text">Projects</span>
                             </button>
                         </a></li>
-                        <li><a class="hvr-grow" href="{{ url_for('thoughts') }}">
+                        <li><a href="{{ url_for('articles') }}">
                             <button type="button" class="btn btn-success btn-rmv-col">
-                                Thoughts
+                                <span class="nav-text">Articles</span>
+                            </button>
+                        </a></li>
+                        <li><a href="{{ url_for('contact') }}">
+                            <button type="button" class="btn btn-success btn-rmv-col">
+                                <span class="nav-text">Contact</span>
                             </button>
                         </a></li>
                     </ul>

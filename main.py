@@ -1,110 +1,74 @@
-import sqlite3
-import re
-import website_config
-from flask import Flask, render_template, send_from_directory, g, request, redirect, url_for, flash
-from flask_basicauth import BasicAuth
-from forms import ItemForm
-from os import listdir, getcwd
-from os.path import join as join_path
+import markdown
+import os
+from flask import Flask, render_template, send_from_directory, Markup
 
 app = Flask(__name__)
-app.secret_key = website_config.SECRET_KEY
-app.config['BASIC_AUTH_USERNAME'] = 'root'
-app.config['BASIC_AUTH_PASSWORD'] = website_config.ROOT_PASSWORD
 
-basic_auth = BasicAuth(app)
-
-
-@app.before_request
-def before_request():
-    g.db = sqlite3.connect('db/digitalcat.db')
+article_data = []
+project_data = []
+cached = False
 
 
-@app.teardown_request
-def teardown_request(exception):
-    if hasattr(g, 'db'):
-        g.db.close()
+def cache_texts():
+    global cached
+    if not cached:
+        text_data = []
+        for text_type in ['articles', 'projects']:
+            path = os.path.join(os.getcwd(), 'static', 'text', text_type)
+            files = os.listdir(path=path)
+            for file in files:
+                file_path = os.path.join(os.getcwd(), 'static', 'text', text_type, file)
+                data = dict()
+                data['title'] = file.replace('.md', '')
+                data['type'] = text_type.replace('s', '')
+                data['path'] = file_path
+                with open(file_path, mode='r') as textfile:
+                    text = textfile.readlines()
+                    # Remove the first line and store it as the description
+                    data['description'] = text.pop(0).strip()
+                    # Store the rest as the contents
+                    data['contents'] = ''
+                    for line in text:
+                        data['contents'] += line
+                    # print(data['contents'])
+                    text_data.append(data)
+                    print('Stored file with name: ' + file)
+        global article_data
+        article_data = [data for data in text_data if data['type'] == 'article']
+        global project_data
+        project_data = [data for data in text_data if data['type'] == 'project']
+        cached = True
+
+
+def return_requested_data(data_type='', title=''):
+    if data_type == 'article':
+        global article_data
+        for article in article_data:
+            if article['title'] == title:
+                return article
+    else:
+        global project_data
+        for project in project_data:
+            if project['title'] == title:
+                return project
+    return dict()
 
 
 @app.route('/')
 def index():
-    return render_template('index.html', page_title='Index')
+    cache_texts()
+    return render_template('index.html', page_title='Digitalcat Homepage')
 
 
-@app.route('/admin')
-@basic_auth.required
-def admin():
-    current_items = g.db.execute('SELECT * from items').fetchall()
-    return render_template('admin.html',
-                           items=current_items)
+@app.route('/contact')
+def contact():
+    return render_template('contact.html', page_title='Digitalcat Contact')
 
 
-@app.route('/admin/submit', methods=['GET', 'POST'])
-@basic_auth.required
-def submit():
-    form = ItemForm(request.form)
-    if request.method == 'POST':
-        """
-        print('Submitted data:\n{}\n{}\n{}\n{}\n{}\n{}'.format(
-            form.title.data,
-            form.description.data,
-            form.image.data,
-            form.content.data,
-            form.item_type.data,
-            form.publish.data,
-        ))
-        """
-        # Temporary validation:
-        data = [
-            form.title.data,
-            form.description.data,
-            form.image.data,
-            form.content.data,
-            form.item_type.data,
-            form.publish.data,
-        ]
-        valid = True
-        for item in data:
-            if item is None or len(item) == 0:
-                valid = False
-        if valid:
-            try:
-                reference = g.db.execute('SELECT * FROM items WHERE type = "{}"'.format(form.item_type.data)).fetchall()[-1]
-                reference = int(reference[1]) + 1
-                published = 0
-                if form.publish.data:
-                    published = 1
-                g.db.execute('INSERT INTO items VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)', (
-                    reference,
-                    form.item_type.data,
-                    form.title.data,
-                    form.description.data,
-                    form.image.data,
-                    form.content.data,
-                    published
-                ))
-                g.db.commit()
-            except Exception as e:
-                print('DB Error: {}'.format(e))
-                flash('DB Error: {}'.format(e))
-                return redirect(url_for('submit'))
-            else:
-                flash('Form successfully posted')
-                return redirect(url_for('admin'))
-        else:
-            flash('All fields are required')
-            return render_template('submit.html', form=form)
-    elif request.method == 'GET':
-        return render_template('submit.html', form=form)
+@app.route('/', subdomain='test')
+def test():
+    return 'test'
 
-
-@app.route('/admin/delete/<item_type>/<int:item_ref>')
-@basic_auth.required
-def delete_item(item_type, item_ref):
-    print('Deleted item: Type: {} Ref: {}'.format(item_type, item_ref))
-    g.db.execute('DELETE FROM items WHERE `type` = ? AND `reference` = ?', (item_type, item_ref))
-    g.db.commit()
-    return redirect(url_for('admin'))
 
 media_folder = 'assets/'  # TODO: Fold into a config
 
@@ -115,63 +79,83 @@ def get_file(filename):
     return send_from_directory(media_folder, filename, as_attachment=True)
 
 
-@app.route('/thoughts')
-def thoughts():
-    thoughts_list = g.db.execute('SELECT * from items WHERE type = "thought"').fetchall()
-    thoughts_list.reverse()
-    return render_template('collection.html',
-                           page_title='Written thoughts',
-                           item_type='thought',
-                           items=thoughts_list)
+@app.route('/articles')
+def articles():
+    global article_data
+    return render_template('list.html',
+                           page_title='Digitalcat Articles',
+                           item_type='article',
+                           items=article_data)
 
 
-@app.route('/thought/<int:thought_ref>')
-def thought(thought_ref):
-    data = g.db.execute('SELECT * FROM items WHERE reference = "{}" AND type = "thought"'.format(thought_ref)).fetchall()[0]
-    # print(data)
-    topic_contents = re.split('\[(.*?)\]', data[6])
+@app.route('/article/<title>')
+def article(title):
+    data = return_requested_data(data_type='article', title=title)
+    try:
+        text = Markup(markdown.markdown(data['contents']))
+    except KeyError:
+        text = 'Article not found, try another name?'
     return render_template('item.html',
-                           item_type='thought',
-                           page_title=data[3],
-                           item_contents=topic_contents)
+                           title=title,
+                           item_type='article',
+                           text=text)
 
 
 @app.route('/projects')
 def projects():
-    projects_list = g.db.execute('SELECT * FROM items WHERE type = "project"').fetchall()
-    projects_list.reverse()
-    return render_template('collection.html',
-                           page_title='Projects',
+    global project_data
+    return render_template('list.html',
+                           page_title='Digitalcat Projects',
                            item_type='project',
-                           items=projects_list)
+                           items=project_data)
 
 
-@app.route('/project/<int:project_ref>')
-def project(project_ref):
-    data = g.db.execute('SELECT * FROM items WHERE reference = "{}" AND type = "project"'.format(project_ref)).fetchall()[0]
-    # print(data)
-    project_contents = re.split('\[(.*?)\]', data[6])
-    return render_template(
-        'item.html',
-        item_type='project',
-        page_title=data[3],
-        item_contents=project_contents)
+@app.route('/project/<title>')
+def project(title):
+    data = return_requested_data(data_type='project', title=title)
+    try:
+        text = Markup(markdown.markdown(data['contents']))
+    except KeyError:
+        text = 'Project found, try another name?'
+    return render_template('item.html',
+                           title=title,
+                           item_type='project',
+                           text=text)
 
 
+"""
+# @basic_auth.required
 # API related routes below here
 @app.route('/charity')
 def charity():
     charity_dir = getcwd() + '/assets/charity'
     charity_files = listdir(charity_dir)
-    streamers_available = [streamer.strip('.txt') for streamer in charity_files]
+    streamers_available = [streamer.replace('.txt', '') for streamer in charity_files]
     return render_template(
         'charity.html',
         page_title='Twitch charity stream donations API',
         end_points=streamers_available)
 
 
+@app.route('/charity/gameblast')
+def return_gameblast_total():
+    gameblast_file = getcwd() + '/assets/charity/gameblast.txt'
+    try:
+        with open(gameblast_file, 'r') as file:
+            donation_amount = file.readline()
+    except FileNotFoundError:
+        return 'API ERROR: FNF'
+    donation_amount = '£' + donation_amount
+    return render_template(
+        'donation_api.html',
+        streamer='Gameblast16',
+        amount=donation_amount,
+        marquee=False,
+        gameblast=True)
+
+
 @app.route('/charity/<streamer_required>')
-def return_donation_amount(streamer_required):
+def return_donation_amounts(streamer_required):
     charity_dir = getcwd() + '/assets/charity'
     charity_files = listdir(charity_dir)
     # Get only the names of the streamers. Files should called name.txt
@@ -189,7 +173,31 @@ def return_donation_amount(streamer_required):
         'donation_api.html',
         streamer=streamer_required,
         amount=return_string,
-        marquee=False)
+        marquee=False,
+        gameblast=False)
+
+
+@app.route('/charity/<streamer_required>/total')
+def return_donation_amount_total(streamer_required):
+    charity_dir = getcwd() + '/assets/charity'
+    charity_files = listdir(charity_dir)
+    # Get only the names of the streamers. Files should called name.txt
+    streamers_available = [streamer[:len(streamer) - 4] for streamer in charity_files]  # remove the .txt without strip
+    if streamer_required not in streamers_available:
+        return 'API ERROR: Streamer endpoint not available'
+    try:
+        # re-append the .txt to access the file
+        with open(join_path(charity_dir, streamer_required + '.txt'), 'r') as file:
+            donation_amount = file.readline().split(' ')
+    except FileNotFoundError:
+        return 'API ERROR: File could not be opened'
+    return_string = '£{}'.format(donation_amount[0])
+    return render_template(
+        'donation_api.html',
+        streamer=streamer_required,
+        amount=return_string,
+        marquee=False,
+        gameblast=False)
 
 
 @app.route('/charity/<streamer_required>/marquee')
@@ -206,13 +214,41 @@ def return_donation_amount_marquee(streamer_required):
             donation_amount = file.readline().split(' ')
     except FileNotFoundError:
         return 'API ERROR: File could not be opened'
-    print(donation_amount)
     return_string = 'Donations raised: £{} Donation Goal: £{} Percentage Complete: {}%'.format(donation_amount[0], donation_amount[1], donation_amount[2])
     return render_template(
         'donation_api.html',
         streamer=streamer_required,
         amount=return_string,
-        marquee=True)
+        marquee=True,
+        gameblast=False)
+
+
+# W: 1300, H: 500
+@app.route('/charity/<streamer_required>/text')
+def return_donation_amount_text(streamer_required):
+    charity_dir = getcwd() + '/assets/charity'
+    charity_files = listdir(charity_dir)
+    # Get only the names of the streamers. Files should called name.txt
+    streamers_available = [streamer[:len(streamer) - 4] for streamer in charity_files]  # remove the .txt without strip
+    if streamer_required not in streamers_available:
+        return 'API ERROR: Streamer endpoint not available'
+    try:
+        # re-append the .txt to access the file
+        with open(join_path(charity_dir, streamer_required + '.txt'), 'r') as file:
+            donation_amount = file.readline().split(' ')
+    except FileNotFoundError:
+        return 'API ERROR: File could not be opened'
+    return_string = 'Amount raised: £{} Goal: £{} Goal completion: {}%'.format(donation_amount[0], donation_amount[1], donation_amount[2])
+    return render_template(
+        'donation_api.html',
+        streamer=streamer_required,
+        amount=return_string,
+        marquee=False,
+        gameblast=False)
+"""
+
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    cache_texts()
+    # app.run(host='127.0.0.1', port=9000, debug=True)
+    app.run(host='0.0.0.0', port=9000, debug=False)

@@ -2,59 +2,77 @@
 {% block body %}
 <div class="container-fluid">
     <!-- Introduction row -->
-    <div class="row pad-one-em">
-        <div class="col-md-3"></div>
-        <!-- Details -->
+    <div class="row padded-row" id="about-me">
+        <!-- Spacer -->
+        <div class="col-md-2"></div>
+        <!-- Personal statement -->
+        <div class="col-md-5">
+            <p>
+                My name is Simon, I am 22 years old and I come from the island of Malta. I am a software enthusiast,
+                always thinking up new ideas for projects and prototyping them. Creativity is my passion and I am
+                currently reading for a degree in Creative Computing with the University of London.
+            </p>
+        </div>
+        <!-- Photo -->
         <div class="col-md-3">
-            <p id="about-me-para" class="about-me-row">
-                My name is Simon and I am 22 years old. I come from and am based on the island of Malta. I've been using
-                computers for around 20 years. It is my tool of choice to solve nearly any problem or to make real any
-                creative idea I think up. I am reading for a degree in Creative Computing with the University of London
-                via their International Programme.
-            </p>
+            <img src="{{ url_for('static', filename='images/face.png') }}">
         </div>
-        <!-- Picture -->
-        <div id="about-me-image" class="col-md-3">
-            <img src="{{ url_for('static', filename='face.png') }}">
-        </div>
-        <div class="col-md-3"></div>
-    </div>
-    <!-- Contact row -->
-    <div class="row">
-        <div class="col-md-4"></div>
-        <!-- Details -->
-        <div class="col-md-4">
-            <p id="contact-me-para">
-                If you want to get in contact with me, feel free to email me at: simon@agius-muscat.net.
-                You can also find me on <a target="_blank" href="https://github.com/purrcat259" class="item-link">GitHub</a>
-            </p>
-        </div>
-        <div class="col-md-4"></div>
-    </div>
-    <!-- Box Row -->
-    <div class="row">
+        <!-- Spacer -->
         <div class="col-md-2"></div>
+    </div>
+    <!-- Projects Row -->
+    <div class="row padded-row">
+        <!-- Spacer -->
+        <div class="col-md-4"></div>
+        <!-- Box -->
         <div class="col-md-4">
-            <div class="box">
-                <a href="{{ url_for('projects') }}">
+            <a href="{{ url_for('projects') }}">
+                <div class="box">
                     <p class="box-text hvr-float">Projects</p>
-                </a>
-            </div>
+                </div>
+            </a>
             <p class="box-explanation">
-                Information and updates about my current ongoing personal projects.
+                Information about my personal projects
             </p>
         </div>
+        <!-- Spacer -->
+        <div class="col-md-4"></div>
+    </div>
+    <!-- Articles Row -->
+    <div class="row padded-row">
+        <!-- Spacer -->
+        <div class="col-md-4"></div>
+        <!-- Box -->
         <div class="col-md-4">
-            <div class="box">
-                <a href="{{ url_for('thoughts') }}">
-                    <p class="box-text hvr-float">Thoughts</p>
-                </a>
-            </div>
+            <a href="{{ url_for('articles') }}">
+                <div class="box">
+                    <p class="box-text hvr-float">Articles</p>
+                </div>
+            </a>
             <p class="box-explanation">
-                Thoughts I write down. Could be opinion, observations or a summary of an experience/project.
+                    Thoughts I write down
             </p>
         </div>
-        <div class="col-md-2"></div>
+        <!-- Spacer -->
+        <div class="col-md-4"></div>
+    </div>
+    <!-- Contact Row -->
+    <div class="row padded-row">
+        <!-- Spacer -->
+        <div class="col-md-4"></div>
+        <!-- Box -->
+        <div class="col-md-4">
+            <a href="{{ url_for('contact') }}">
+                <div class="box">
+                    <p class="box-text hvr-float">Contact me</p>
+                </div>
+            </a>
+            <p class="box-explanation">
+                How to get in touch
+            </p>
+        </div>
+        <!-- Spacer -->
+        <div class="col-md-4"></div>
     </div>
 </div>
 {% endblock %}

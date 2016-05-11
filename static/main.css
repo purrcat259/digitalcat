@@ -10,17 +10,22 @@ html, body {
 	background-color: red;
 }
 
-.pad-one-em {
-  padding: 1em;
+.padded-row {
+  padding: 2em;
 }
 
 /* Navbar */
 
 #global-navbar {
-	margin: 15px;
+	padding: 0.5em 0em 0.5em 0em;  /* Top, Right, Bottom, Left */
   background-color: #1E824C;
   border: 0;
-  border-radius: 15px;
+  border-radius: 0px;
+}
+
+.nav-text {
+	font-size: 120%;
+	color: white;
 }
 
 /* Others */
@@ -40,8 +45,15 @@ a {
   text-decoration: none !important;  /* Remove underline for links */
 }
 
+/* Fix text links and stop button links from breaking */
+
 a:link {
 	color: white;
+	background-color: #1E824C;
+}
+
+.btn a {
+	background-color: rgba(0, 0, 0, 0);
 }
 
 a:visited {
@@ -62,41 +74,43 @@ a:active {
 /* All pages */
 
 .header-text {
+	font-size: 400%;
 	text-align: center;
-	padding-top: 1em;
-	padding-bottom: 2em;
+	padding-bottom: 1em;
 }
 
-/* Front page */
+/* ---Index page--- */
 
-.about-me-row {
-  padding-top: 2em;
+/* About me row */
+
+#about-me p {
+	font-size: 200%;
+	text-align: justify;
 }
 
-#about-me-para {
-  position: relative;
-  text-align: justify;
-  left: 10%;
-  font-size: 150%;
+#about-me img {
+	position: relative;
+	left: 25%;
 }
 
-#contact-me-para {
-  text-align: center;
-  font-size: 150%;
-  padding-bottom: 1em;
+/* Contact me colours */
+
+#contact-email {
+	background-color: #e74c3c;
 }
 
-#about-me-image {
-  position: relative;
-  left: 5%;
+#contact-github {
+	background-color: #42162f;
+}
+
+#contact-twitter {
+	background-color: #55acee;
 }
 
 /* Boxes */
 
 .box {
   background-color: #1E824C;
-  border-radius: 15px;
-  margin-bottom: 5%;
   height: 250px;
 }
 
@@ -110,18 +124,17 @@ a:active {
 }
 
 .box-explanation {
+	color: white;
+	background-color: #379663;
   position: relative;
-  left: 25%;
-  /* text-align: justify; */
-  font-size: 110%;
-  width: 50%;
+  text-align: center;
+  font-size: 150%;
+  padding: 2em;
 }
 
 .collection-box {
+	padding: 2em;
 	background-color: #1E824C;
-	border-radius: 15px;
-  margin-bottom: 5%;
-  height: 175px;
 }
 
 .collection-box-text {
@@ -132,37 +145,19 @@ a:active {
   left: 15%;
 }
 
-.collection-box-explanation {
-  margin-top: 8%;
-  padding-left: 2em;
-  font-size: 150%;
-}
-
-/* Topic page */
-
-.text-row {
-  padding-top: 1em;
-  font-size: 150%;
-}
-
-.topic-image {
-  padding: 5%;
-  display: block;
-  margin:0 auto;
-  width: 50%;
-}
-
 /* Back to Button */
 
 .back-to {
   position: relative;
   left: 35%;
+  padding: 1em;
   margin-top: 2em;
   margin-bottom: 2em;
 }
 
 /* Item paragraph */
 
-.item-para {
+#item-para {
 	text-align: justify;
+	font-size: 300%;
 }
