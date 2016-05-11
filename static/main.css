@@ -45,8 +45,15 @@ a {
   text-decoration: none !important;  /* Remove underline for links */
 }
 
+/* Fix text links and stop button links from breaking */
+
 a:link {
 	color: white;
+	background-color: #1E824C;
+}
+
+.btn a {
+	background-color: rgba(0, 0, 0, 0);
 }
 
 a:visited {
@@ -69,7 +76,6 @@ a:active {
 .header-text {
 	font-size: 400%;
 	text-align: center;
-	padding-top: 1em;
 	padding-bottom: 1em;
 }
 
@@ -139,31 +145,19 @@ a:active {
   left: 15%;
 }
 
-/* Topic page */
-
-.text-row {
-  padding-top: 1em;
-  font-size: 150%;
-}
-
-.topic-image {
-  padding: 5%;
-  display: block;
-  margin:0 auto;
-  width: 50%;
-}
-
 /* Back to Button */
 
 .back-to {
   position: relative;
   left: 35%;
+  padding: 1em;
   margin-top: 2em;
   margin-bottom: 2em;
 }
 
 /* Item paragraph */
 
-.item-para {
+#item-para {
 	text-align: justify;
+	font-size: 300%;
 }

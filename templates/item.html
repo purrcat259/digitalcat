@@ -18,10 +18,8 @@
     <div class="row padded-row">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-            <a href="{{ url_for(item_type + 's') }}">
-                <button type="button" class="btn btn-success back-to">
-                    Back to {{ item_type }}s list
-                </button>
+            <a class="back-to" href="{{ url_for(item_type + 's') }}">
+                Back to {{ item_type }}s list
             </a>
         </div>
         <div class="col-md-4"></div>
