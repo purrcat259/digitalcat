@@ -11,8 +11,8 @@
             <link href="{{ url_for('static', filename='hover.css') }}" rel="stylesheet" media="all">
             <title>
                 {% block title %}
-                    {% if title %}
-                        {{ title }}
+                    {% if page_title %}
+                        {{ page_title }}
                     {% else %}
                         DigitalCat
                     {% endif %}
