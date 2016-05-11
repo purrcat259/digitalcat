@@ -244,5 +244,5 @@ def return_donation_amount_text(streamer_required):
 
 if __name__ == '__main__':
     cache_texts()
-    app.run(host='127.0.0.1', port=9000, debug=True)
-    # app.run(host='0.0.0.0', port=9000, debug=False)
+    # app.run(host='127.0.0.1', port=9000, debug=True)
+    app.run(host='0.0.0.0', port=9000, debug=False)
