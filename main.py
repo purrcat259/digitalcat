@@ -6,33 +6,38 @@ app = Flask(__name__)
 
 article_data = []
 project_data = []
+cached = False
 
 
 def cache_texts():
-    text_data = []
-    for text_type in ['articles', 'projects']:
-        path = os.path.join(os.getcwd(), 'static', 'text', text_type)
-        files = os.listdir(path=path)
-        for file in files:
-            file_path = os.path.join(os.getcwd(), 'static', 'text', text_type, file)
-            data = dict()
-            data['title'] = file.replace('.md', '')
-            data['type'] = text_type.replace('s', '')
-            data['path'] = file_path
-            with open(file_path, mode='r') as textfile:
-                text = textfile.readlines()
-                # Remove the first line and store it as the description
-                data['description'] = text.pop(0).strip()
-                # Store the rest as the contents
-                data['contents'] = ''
-                for line in text:
-                    data['contents'] += line
-                # print(data['contents'])
-                text_data.append(data)
-    global article_data
-    article_data = [data for data in text_data if data['type'] == 'article']
-    global project_data
-    project_data = [data for data in text_data if data['type'] == 'project']
+    global cached
+    if not cached:
+        text_data = []
+        for text_type in ['articles', 'projects']:
+            path = os.path.join(os.getcwd(), 'static', 'text', text_type)
+            files = os.listdir(path=path)
+            for file in files:
+                file_path = os.path.join(os.getcwd(), 'static', 'text', text_type, file)
+                data = dict()
+                data['title'] = file.replace('.md', '')
+                data['type'] = text_type.replace('s', '')
+                data['path'] = file_path
+                with open(file_path, mode='r') as textfile:
+                    text = textfile.readlines()
+                    # Remove the first line and store it as the description
+                    data['description'] = text.pop(0).strip()
+                    # Store the rest as the contents
+                    data['contents'] = ''
+                    for line in text:
+                        data['contents'] += line
+                    # print(data['contents'])
+                    text_data.append(data)
+                    print('Stored file with name: ' + file)
+        global article_data
+        article_data = [data for data in text_data if data['type'] == 'article']
+        global project_data
+        project_data = [data for data in text_data if data['type'] == 'project']
+        cached = True
 
 
 def return_requested_data(data_type='', title=''):
@@ -51,6 +56,7 @@ def return_requested_data(data_type='', title=''):
 
 @app.route('/')
 def index():
+    cache_texts()
     return render_template('index.html', page_title='Digitalcat Homepage')
 
 
