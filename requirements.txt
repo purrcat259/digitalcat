@@ -6,3 +6,4 @@ commontools
 itsdangerous
 Flask-BasicAuth
 Markdown
+requests
