@@ -5,10 +5,12 @@
             <meta charset="UTF-8">
             <script src="https://use.fontawesome.com/45c6f2d161.js"></script>
             <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-            <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
-            <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-            <link href="{{ url_for('static', filename='hover.css') }}" rel="stylesheet" media="all">
+            {% block css %}
+                <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+                <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+                <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.min.css') }}">
+                <link href="{{ url_for('static', filename='hover.min.css') }}" rel="stylesheet" media="all">
+            {% endblock %}
             <title>
                 {% block title %}
                     {% if page_title %}
