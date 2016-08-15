@@ -58,9 +58,10 @@
                             <div class="flash">{{ message }}</div>
                         {% endfor %}
                     {% endblock %}
-                    {% block content %}
-                            <div class="page-content">what what</div>
-                    {% endblock %}
+                    <div class="page-content">
+                        {% block content %}
+                        {% endblock %}
+                    </div>
                 </main>
             </div>
         {% endblock %}
