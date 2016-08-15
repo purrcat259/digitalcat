@@ -3,6 +3,7 @@
     <head lang="en">
         {% block head %}
             <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <!-- CSS Files -->
             {% block global_css %}
                 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -22,11 +23,7 @@
             <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
             <title>
                 {% block title %}
-                    {% if page_title %}
-                        {{ page_title }}
-                    {% else %}
-                        DigitalCat
-                    {% endif %}
+                    Digitalcat
                 {% endblock %}
             </title>
         {% endblock %}
