@@ -1,2 +1,2 @@
-db/digitalcat.db
-website_config.py
+.idea/
+__pycache__/
