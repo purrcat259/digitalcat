@@ -58,10 +58,21 @@
                             <div class="flash">{{ message }}</div>
                         {% endfor %}
                     {% endblock %}
-                    <div class="page-content">
-                        {% block content %}
+                    {% block page_content %}
+                        <div class="page-content">
+                            <div class="mdl-grid">
+                                <div class="mdl-cell mdl-cell--4-col"></div>
+                                <div class="mdl-cell mdl-cell--4-col" style="text-align: center">
+                                    {% block centre_content %}
+                                        No centre content defined
+                                    {% endblock %}
+                                </div>
+                                <div class="mdl-cell mdl-cell--4-col"></div>
+                            </div>
+                        </div>
+                        {% block extra_rows %}
                         {% endblock %}
-                    </div>
+                    {% endblock %}
                 </main>
             </div>
         {% endblock %}
