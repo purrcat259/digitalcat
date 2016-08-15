@@ -56,7 +56,7 @@ def return_requested_data(data_type='', title=''):
 
 @app.route('/')
 def index():
-    cache_texts()
+    # cache_texts()
     return render_template('index.html', page_title='Digitalcat Homepage')
 
 
@@ -123,132 +123,7 @@ def project(title):
                            text=text)
 
 
-"""
-# @basic_auth.required
-# API related routes below here
-@app.route('/charity')
-def charity():
-    charity_dir = getcwd() + '/assets/charity'
-    charity_files = listdir(charity_dir)
-    streamers_available = [streamer.replace('.txt', '') for streamer in charity_files]
-    return render_template(
-        'charity.html',
-        page_title='Twitch charity stream donations API',
-        end_points=streamers_available)
-
-
-@app.route('/charity/gameblast')
-def return_gameblast_total():
-    gameblast_file = getcwd() + '/assets/charity/gameblast.txt'
-    try:
-        with open(gameblast_file, 'r') as file:
-            donation_amount = file.readline()
-    except FileNotFoundError:
-        return 'API ERROR: FNF'
-    donation_amount = '£' + donation_amount
-    return render_template(
-        'donation_api.html',
-        streamer='Gameblast16',
-        amount=donation_amount,
-        marquee=False,
-        gameblast=True)
-
-
-@app.route('/charity/<streamer_required>')
-def return_donation_amounts(streamer_required):
-    charity_dir = getcwd() + '/assets/charity'
-    charity_files = listdir(charity_dir)
-    # Get only the names of the streamers. Files should called name.txt
-    streamers_available = [streamer[:len(streamer) - 4] for streamer in charity_files]  # remove the .txt without strip
-    if streamer_required not in streamers_available:
-        return 'API ERROR: Streamer endpoint not available'
-    try:
-        # re-append the .txt to access the file
-        with open(join_path(charity_dir, streamer_required + '.txt'), 'r') as file:
-            donation_amount = file.readline().split(' ')
-    except FileNotFoundError:
-        return 'API ERROR: File could not be opened'
-    return_string = '£{} / £{} {}%'.format(donation_amount[0], donation_amount[1], donation_amount[2])
-    return render_template(
-        'donation_api.html',
-        streamer=streamer_required,
-        amount=return_string,
-        marquee=False,
-        gameblast=False)
-
-
-@app.route('/charity/<streamer_required>/total')
-def return_donation_amount_total(streamer_required):
-    charity_dir = getcwd() + '/assets/charity'
-    charity_files = listdir(charity_dir)
-    # Get only the names of the streamers. Files should called name.txt
-    streamers_available = [streamer[:len(streamer) - 4] for streamer in charity_files]  # remove the .txt without strip
-    if streamer_required not in streamers_available:
-        return 'API ERROR: Streamer endpoint not available'
-    try:
-        # re-append the .txt to access the file
-        with open(join_path(charity_dir, streamer_required + '.txt'), 'r') as file:
-            donation_amount = file.readline().split(' ')
-    except FileNotFoundError:
-        return 'API ERROR: File could not be opened'
-    return_string = '£{}'.format(donation_amount[0])
-    return render_template(
-        'donation_api.html',
-        streamer=streamer_required,
-        amount=return_string,
-        marquee=False,
-        gameblast=False)
-
-
-@app.route('/charity/<streamer_required>/marquee')
-def return_donation_amount_marquee(streamer_required):
-    charity_dir = getcwd() + '/assets/charity'
-    charity_files = listdir(charity_dir)
-    # Get only the names of the streamers. Files should called name.txt
-    streamers_available = [streamer[:len(streamer) - 4] for streamer in charity_files]  # remove the .txt without strip
-    if streamer_required not in streamers_available:
-        return 'API ERROR: Streamer endpoint not available'
-    try:
-        # re-append the .txt to access the file
-        with open(join_path(charity_dir, streamer_required + '.txt'), 'r') as file:
-            donation_amount = file.readline().split(' ')
-    except FileNotFoundError:
-        return 'API ERROR: File could not be opened'
-    return_string = 'Donations raised: £{} Donation Goal: £{} Percentage Complete: {}%'.format(donation_amount[0], donation_amount[1], donation_amount[2])
-    return render_template(
-        'donation_api.html',
-        streamer=streamer_required,
-        amount=return_string,
-        marquee=True,
-        gameblast=False)
-
-
-# W: 1300, H: 500
-@app.route('/charity/<streamer_required>/text')
-def return_donation_amount_text(streamer_required):
-    charity_dir = getcwd() + '/assets/charity'
-    charity_files = listdir(charity_dir)
-    # Get only the names of the streamers. Files should called name.txt
-    streamers_available = [streamer[:len(streamer) - 4] for streamer in charity_files]  # remove the .txt without strip
-    if streamer_required not in streamers_available:
-        return 'API ERROR: Streamer endpoint not available'
-    try:
-        # re-append the .txt to access the file
-        with open(join_path(charity_dir, streamer_required + '.txt'), 'r') as file:
-            donation_amount = file.readline().split(' ')
-    except FileNotFoundError:
-        return 'API ERROR: File could not be opened'
-    return_string = 'Amount raised: £{} Goal: £{} Goal completion: {}%'.format(donation_amount[0], donation_amount[1], donation_amount[2])
-    return render_template(
-        'donation_api.html',
-        streamer=streamer_required,
-        amount=return_string,
-        marquee=False,
-        gameblast=False)
-"""
-
-
 if __name__ == '__main__':
-    cache_texts()
-    # app.run(host='127.0.0.1', port=9000, debug=True)
-    app.run(host='0.0.0.0', port=9000, debug=False)
+    # cache_texts()
+    app.run(host='127.0.0.1', port=9000, debug=True)
+    # app.run(host='0.0.0.0', port=9000, debug=False)
