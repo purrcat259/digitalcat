@@ -20,6 +20,8 @@ articles = [
     }
 ]
 
+debug_mode = True
+
 
 def get_article_data(article_url_name):
     for article in articles:
@@ -67,6 +69,7 @@ def article(title):
 """
 
 if __name__ == '__main__':
-    # cache_texts()
-    app.run(host='127.0.0.1', port=9000, debug=True)
-    # app.run(host='0.0.0.0', port=9000, debug=False)
+    if debug_mode:
+        app.run(host='127.0.0.1', port=9000, debug=True)
+    else:
+        app.run(host='0.0.0.0', port=9000, debug=False)
