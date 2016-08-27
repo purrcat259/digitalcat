@@ -54,10 +54,20 @@ def return_requested_data(data_type='', title=''):
     return dict()
 
 
+items = [
+    {
+        'title': 'Hello Friend'
+    },
+    {
+        'title': 'How have you been'
+    }
+]
+
+
 @app.route('/')
 def index():
     # cache_texts()
-    return render_template('list.html', page_title='Digitalcat Homepage', item_count=5)
+    return render_template('list.html', page_title='Digitalcat Homepage', items=items)
 
 
 @app.route('/contact')
