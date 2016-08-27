@@ -1,6 +1,14 @@
 {% extends "layout.html" %}
 {% block centre_content %}
-    {% block article_title %}
-
-    {% endblock %}
+    <div>
+        <h1>{{ article.title }}</h1>
+    </div>
+    <div>
+        <h2>Submitted on: {{ article.timestamp }}</h2>
+    </div>
+    <div>
+        <p>
+            {{ article.contents }}
+        </p>
+    </div>
 {% endblock %}
