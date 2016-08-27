@@ -57,7 +57,7 @@ def return_requested_data(data_type='', title=''):
 @app.route('/')
 def index():
     # cache_texts()
-    return render_template('index.html', page_title='Digitalcat Homepage')
+    return render_template('list.html', page_title='Digitalcat Homepage', item_count=5)
 
 
 @app.route('/contact')
