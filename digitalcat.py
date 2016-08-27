@@ -44,12 +44,6 @@ def article(article_url_name):
 def contact():
     return render_template('contact.html', page_title='Digitalcat Contact')
 
-
-@app.route('/', subdomain='test')
-def test():
-    return 'test'
-
-
 media_folder = 'assets/'  # TODO: Fold into a config
 
 
