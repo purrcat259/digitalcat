@@ -3,7 +3,7 @@ from flask import Flask, render_template, send_from_directory, Markup
 
 app = Flask(__name__)
 
-items = [
+articles = [
     {
         'id': 1,
         'title': 'Hello Friend',
@@ -21,9 +21,23 @@ items = [
 ]
 
 
+def get_article_data(article_url_name):
+    for article in articles:
+        if article['url_name'] == article_url_name:
+            return article
+    # TODO: Return a special case article with no data to forward the route to 404
+    return None
+
+
 @app.route('/')
 def index():
-    return render_template('article_list.html', page_title='Digitalcat Homepage', items=items)
+    return render_template('article_list.html', page_title='Digitalcat Homepage', articles=articles)
+
+
+@app.route('/article/<article_url_name>')
+def article(article_url_name):
+    article = get_article_data(article_url_name=article_url_name)
+    return render_template('article.html', page_title='Article', article=article)
 
 
 @app.route('/contact')
