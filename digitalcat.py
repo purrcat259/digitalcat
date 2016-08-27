@@ -5,13 +5,17 @@ app = Flask(__name__)
 
 items = [
     {
+        'id': 1,
         'title': 'Hello Friend',
         'contents': 'blablabla',
+        'url_name': 'hello-friend',
         'time_submitted': 1472302423
     },
     {
+        'id': 2,
         'title': 'How have you been',
         'contents': 'This is another article',
+        'url_name': 'how-have-you-been',
         'time_submitted': 1472302430
     }
 ]
