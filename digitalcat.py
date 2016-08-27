@@ -5,17 +5,21 @@ app = Flask(__name__)
 
 items = [
     {
-        'title': 'Hello Friend'
+        'title': 'Hello Friend',
+        'contents': 'blablabla',
+        'time_submitted': 1472302423
     },
     {
-        'title': 'How have you been'
+        'title': 'How have you been',
+        'contents': 'This is another article',
+        'time_submitted': 1472302430
     }
 ]
 
 
 @app.route('/')
 def index():
-    return render_template('list.html', page_title='Digitalcat Homepage', items=items)
+    return render_template('article_list.html', page_title='Digitalcat Homepage', items=items)
 
 
 @app.route('/contact')
