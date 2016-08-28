@@ -1,24 +1,9 @@
-import os
+from db import article_database
 from flask import Flask, render_template, send_from_directory, Markup
 
 app = Flask(__name__)
 
-articles = [
-    {
-        'id': 1,
-        'title': 'Hello Friend',
-        'contents': 'blablabla',
-        'url_name': 'hello-friend',
-        'timestamp': 1472302423
-    },
-    {
-        'id': 2,
-        'title': 'How have you been',
-        'contents': 'This is another article',
-        'url_name': 'how-have-you-been',
-        'timestamp': 1472302430
-    }
-]
+articles = article_database.get_all_articles()
 
 debug_mode = True
 
