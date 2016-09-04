@@ -8,9 +8,11 @@
         <h3>{{ article.timestamp }}</h3>
     </div>
     <div class="article-block">
-        <p class="article-text">
-            {{ article.contents }}
-        </p>
+        {% for contents in article.contents %}
+            <p class="article-text">
+                {{ contents }}
+            </p>
+        {% endfor %}
     </div>
     <div>
         <a href="{{ url_for('index', page_number=1) }}">
