@@ -1,5 +1,6 @@
 import os
 from neopysqlite.neopysqlite import Pysqlite
+from time import strftime, gmtime
 from math import ceil
 
 db_path = os.path.join(os.getcwd(), 'db', 'articles.db')
@@ -11,13 +12,17 @@ class ArticleNotFoundException(Exception):
     pass
 
 
+def convert_epoch_to_timestamp_string(epoch_seconds):
+    return strftime('%d/%m/%Y', gmtime(epoch_seconds))
+
+
 def convert_db_row_to_dict(db_row):
     return {
         'id': db_row[0],
         'title': db_row[1],
         'contents': db_row[2],
         'url_name': db_row[3],
-        'timestamp': db_row[4]
+        'timestamp': convert_epoch_to_timestamp_string(int(db_row[4]))
     }
 
 
