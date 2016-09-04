@@ -16,7 +16,8 @@
 {% block page_extra_content %}
     <div class="pagination-block">
         <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--4-col">
+            <div class="mdl-cell mdl-cell--2-col"></div>
+            <div class="mdl-cell mdl-cell--2-col">
                 {% if page_data.has_previous %}
                     {% set previous_page_number = page_data.current_page - 1 %}
                     <a href="{{ url_for('index', page_number=previous_page_number) }}">
@@ -27,7 +28,7 @@
             <div class="mdl-cell mdl-cell--4-col">
                 <h6>Page {{ page_data.current_page }} / {{ page_data.max_page }}</h6>
             </div>
-            <div class="mdl-cell mdl-cell--4-col">
+            <div class="mdl-cell mdl-cell--2-col">
                 {% if page_data.has_next %}
                     {% set next_page_number = page_data.current_page + 1 %}
                     <a href="{{ url_for('index', page_number=next_page_number) }}">
@@ -35,6 +36,7 @@
                     </a>
                 {% endif %}
             </div>
+            <div class="mdl-cell mdl-cell--2-col"></div>
         </div>
     </div>
 {% endblock %}
