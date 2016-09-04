@@ -3,17 +3,13 @@ from flask import Flask, render_template, send_from_directory, redirect
 
 app = Flask(__name__)
 
-articles = article_database.get_all_articles()
-
 debug_mode = True
+max_page_count = 0
 
 
-def get_article_data(article_url_name):
-    for article in articles:
-        if article['url_name'] == article_url_name:
-            return article
-    # TODO: Return a special case article with no data to forward the route to 404
-    return None
+def run_setup():
+    global max_page_count
+    max_page_count = article_database.get_page_count()
 
 
 @app.errorhandler(404)
@@ -22,13 +18,16 @@ def page_not_found(e):
 
 
 @app.route('/')
-def index():
-    return render_template('article_list.html', page_title='Digitalcat Homepage', articles=articles)
+@app.route('/<int:page_number>')
+def index(page_number=1):
+    if page_number > max_page_count:
+        page_number = max_page_count
+    paginated_articles = article_database.get_paginated_articles(page_number)
+    return render_template('article_list.html', page_title='Digitalcat Homepage', articles=paginated_articles)
 
 
 @app.route('/article/<article_url_name>')
 def article(article_url_name):
-    # article = get_article_data(article_url_name=article_url_name)
     try:
         article = article_database.get_specific_article(article_url_name=article_url_name)
     except article_database.ArticleNotFoundException:
@@ -63,6 +62,7 @@ def article(title):
 """
 
 if __name__ == '__main__':
+    run_setup()
     if debug_mode:
         app.run(host='127.0.0.1', port=9000, debug=True)
     else:
