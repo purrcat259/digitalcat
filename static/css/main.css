@@ -2,162 +2,18 @@ html, body {
   margin: 0 auto;
   background-color: #EEEEEE;
   color: black;
-  font-family: 'Open Sans', sans-serif;
-}
-
-.test {
-	color: pink;
-	background-color: red;
-}
-
-.padded-row {
-  padding: 2em;
-}
-
-/* Navbar */
-
-#global-navbar {
-	padding: 0.5em 0em 0.5em 0em;  /* Top, Right, Bottom, Left */
-  background-color: #1E824C;
-  border: 0;
-  border-radius: 0px;
-}
-
-.nav-text {
-	font-size: 120%;
-	color: white;
-}
-
-/* Others */
-
-.btn-rmv-col {
-  background-color: rgba(0, 0, 0, 0);
-  border: 0;
-}
-
-.btn-spacing {
-	margin-bottom: 3em;
 }
 
 /* Fix links */
-
 a {
-  text-decoration: none !important;  /* Remove underline for links */
+  text-decoration: none !important;
+  color: white;
 }
 
-/* Fix text links and stop button links from breaking */
-
-a:link {
-	color: white;
-	background-color: #1E824C;
-}
-
-.btn a {
-	background-color: rgba(0, 0, 0, 0);
-}
-
-a:visited {
-	color: white;
-}
-
-a:active {
-	color: green;
-}
-
-.item-link {
-	background-color: green;
-	padding: 2px;
-	color: green;
-	font-size: 80%;
-}
-
-/* All pages */
-
-.header-text {
-	font-size: 400%;
-	text-align: center;
-	padding-bottom: 1em;
-}
-
-/* ---Index page--- */
-
-/* About me row */
-
-#about-me p {
-	font-size: 200%;
-	text-align: justify;
-}
-
-#about-me img {
-	position: relative;
-	left: 25%;
-}
-
-/* Contact me colours */
-
-#contact-email {
-	background-color: #e74c3c;
-}
-
-#contact-github {
-	background-color: #42162f;
-}
-
-#contact-twitter {
-	background-color: #55acee;
-}
-
-/* Boxes */
-
-.box {
-  background-color: #1E824C;
-  height: 250px;
-}
-
-.box-text {
-  position: relative;
-  font-size: 300%;
-  text-align: justify;
-  width: 70%;
-  top: 60%;
-  left: 15%;
-}
-
-.box-explanation {
-	color: white;
-	background-color: #379663;
-  position: relative;
-  text-align: center;
-  font-size: 150%;
-  padding: 2em;
-}
-
-.collection-box {
-	padding: 2em;
-	background-color: #1E824C;
-}
-
-.collection-box-text {
-  width: 70%;
-  position: relative;
-  font-size: 250%;
-  top: 25%;
-  left: 15%;
-}
-
-/* Back to Button */
-
-.back-to {
-  position: relative;
-  left: 35%;
+/* Article list page */
+.list-block {
   padding: 1em;
-  margin-top: 2em;
-  margin-bottom: 2em;
-}
-
-/* Item paragraph */
-
-#item-para {
-	text-align: justify;
-	font-size: 300%;
+  text-align: center;
+  background-color: #77BEF5;
+  margin-bottom: 15px;
 }

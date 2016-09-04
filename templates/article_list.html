@@ -2,9 +2,13 @@
 {% block article_list %}
     {% for article in articles %}
         <a href="{{ url_for('article', article_url_name=article.url_name) }}">
-            <div>
-                <div>Item Title: {{ article.title }}</div>
-                <div>Item Number: {{ articles.index(article) + 1 }}</div>
+            <div class="list-block">
+                <div>
+                    <h2>{{ article.title }}</h2>
+                </div>
+                <div>
+                    <h6>#{{ articles.index(article) + 1 }} - {{ article.timestamp }}</h6>
+                </div>
             </div>
         </a>
     {% endfor %}

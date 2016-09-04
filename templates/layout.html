@@ -8,9 +8,9 @@
             {% block global_css %}
                 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
                 <link rel="stylesheet" href="https://code.getmdl.io/1.2.0/material.blue-indigo.min.css" />
-                <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+                <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
                 <link href="{{ url_for('static', filename='hover.css') }}" rel="stylesheet" media="all">
-                <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+                <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
             {% endblock %}
             <!-- JS Files -->
             {% block global_js %}
@@ -61,13 +61,13 @@
                     {% block page_content %}
                         <div class="page-content">
                             <div class="mdl-grid">
-                                <div class="mdl-cell mdl-cell--4-col"></div>
-                                <div class="mdl-cell mdl-cell--4-col" style="text-align: center">
+                                <div class="mdl-cell mdl-cell--3-col"></div>
+                                <div class="mdl-cell mdl-cell--6-col">
                                     {% block centre_content %}
                                         No centre content defined
                                     {% endblock %}
                                 </div>
-                                <div class="mdl-cell mdl-cell--4-col"></div>
+                                <div class="mdl-cell mdl-cell--3-col"></div>
                             </div>
                         </div>
                         {% block extra_rows %}
