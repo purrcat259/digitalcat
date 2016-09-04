@@ -1,17 +1,23 @@
 {% extends "layout.html" %}
 {% block centre_content %}
+<div class="article-content">
     <div>
         <h1>{{ article.title }}</h1>
     </div>
     <div>
-        <h2>Submitted on: {{ article.timestamp }}</h2>
+        <h3>{{ article.timestamp }}</h3>
     </div>
-    <div>
-        <p>
+    <div class="article-block">
+        <p class="article-text">
             {{ article.contents }}
         </p>
     </div>
     <div>
-        <a href="{{ url_for('index') }}">Back to main page</a>
+        <a href="{{ url_for('index', page_number=1) }}">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                Return to main page
+            </button>
+        </a>
     </div>
+</div>
 {% endblock %}

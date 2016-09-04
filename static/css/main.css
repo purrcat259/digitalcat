@@ -31,6 +31,27 @@ a {
   font-size: 400%;
 }
 
+/* Article page */
+
+.article-content {
+    color: #424242;
+}
+
+.article-block {
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+
+.article-text {
+    font-size: 20px;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.article-link-back {
+  font-size: 30px;
+  background-color: #77BEF5;
+}
 
 /* Source: https://jsfiddle.net/eggbox/gk7u32b6/ */
 /* Change the layout__content class to Flex (instead of inline-block) to allow spacer to work. */
