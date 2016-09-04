@@ -71,7 +71,22 @@
                         {% block extra_rows %}
                         {% endblock %}
                     {% endblock %}
+                    {% block push_down_spacer %}
+                        <!-- Add spacer to push Footer down when not enough content -->
+                        <div class="mdl-layout-spacer"></div>
+                    {% endblock %}
                     {% block page_extra_content %}
+                    {% endblock %}
+                    {% block footer %}
+                        <footer class="mdl-mini-footer">
+                            <div class="mdl-mini-footer__left-section">
+                            <div class="mdl-logo">Title</div>
+                                <ul class="mdl-mini-footer__link-list">
+                                    <li><a href="#">Help</a></li>
+                                    <li><a href="#">Privacy & Terms</a></li>
+                                </ul>
+                            </div>
+                        </footer>
                     {% endblock %}
                 </main>
             </div>

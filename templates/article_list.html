@@ -14,23 +14,25 @@
     {% endfor %}
 {% endblock %}
 {% block page_extra_content %}
-    <div class="mdl-grid list-block">
-        <div class="mdl-cell mdl-cell--4-col">
-            {% if page_data.has_previous %}
-                {% set previous_page_number = page_data.current_page - 1 %}
-                <a href="{{ url_for('index', page_number=previous_page_number) }}">
-                    <i class="material-icons pagination_icon">navigate_before</i>
-                </a>
-            {% endif %}
-        </div>
-        <div class="mdl-cell mdl-cell--4-col"></div>
-        <div class="mdl-cell mdl-cell--4-col">
-            {% if page_data.has_next %}
-                {% set next_page_number = page_data.current_page + 1 %}
-                <a href="{{ url_for('index', page_number=next_page_number) }}">
-                    <i class="material-icons pagination_icon">navigate_next</i>
-                </a>
-            {% endif %}
+    <div class="pagination-block">
+        <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--4-col">
+                {% if page_data.has_previous %}
+                    {% set previous_page_number = page_data.current_page - 1 %}
+                    <a href="{{ url_for('index', page_number=previous_page_number) }}">
+                        <i class="material-icons pagination_icon">navigate_before</i>
+                    </a>
+                {% endif %}
+            </div>
+            <div class="mdl-cell mdl-cell--4-col"></div>
+            <div class="mdl-cell mdl-cell--4-col">
+                {% if page_data.has_next %}
+                    {% set next_page_number = page_data.current_page + 1 %}
+                    <a href="{{ url_for('index', page_number=next_page_number) }}">
+                        <i class="material-icons pagination_icon">navigate_next</i>
+                    </a>
+                {% endif %}
+            </div>
         </div>
     </div>
 {% endblock %}

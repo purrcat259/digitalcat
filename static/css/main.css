@@ -2,7 +2,9 @@ html, body {
   margin: 0 auto;
   background-color: #EEEEEE;
   color: black;
+  max-height: 100%;
 }
+
 
 /* Fix links */
 a {
@@ -12,12 +14,28 @@ a {
 
 /* Article list page */
 .list-block {
-  padding: 1em;
+  padding: 5px;
   text-align: center;
   background-color: #77BEF5;
   margin-bottom: 15px;
 }
 
+.pagination-block {
+  text-align: center;
+  background-color: #77BEF5;
+  margin-bottom: 0px;
+}
+
 .pagination_icon {
   font-size: 400%;
+}
+
+
+/* Source: https://jsfiddle.net/eggbox/gk7u32b6/ */
+/* Change the layout__content class to Flex (instead of inline-block) to allow spacer to work. */
+.mdl-layout__content {
+    display: -webkit-flex;
+	display: flex;
+    -webkit-flex-direction: column;
+	        flex-direction: column;
 }
