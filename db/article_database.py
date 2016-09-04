@@ -20,7 +20,7 @@ def convert_db_row_to_dict(db_row):
 
 def get_all_articles():
     db = Pysqlite(database_name='Articles Database', database_file=db_path)
-    all_rows = db.get_all_rows(table='articles')
+    all_rows = db.get_specific_rows(table='articles', filter_string='id IS NOT NULL ORDER BY submit_timestamp')
     converted_rows = [
         convert_db_row_to_dict(row) for row in all_rows
     ]
