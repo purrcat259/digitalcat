@@ -46,6 +46,7 @@ a {
     font-size: 20px;
     text-align: justify;
     text-justify: inter-word;
+    padding-bottom: 1em;
 }
 
 .article-link-back {
