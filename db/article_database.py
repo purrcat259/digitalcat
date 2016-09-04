@@ -17,7 +17,6 @@ def convert_epoch_to_timestamp_string(epoch_seconds):
 
 
 def convert_db_row_to_dict(db_row):
-    print(db_row[2].split('[newline]'))
     return {
         'id': db_row[0],
         'title': db_row[1],
