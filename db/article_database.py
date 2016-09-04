@@ -4,7 +4,7 @@ from math import ceil
 
 db_path = os.path.join(os.getcwd(), 'db', 'articles.db')
 
-articles_per_page = 5
+articles_per_page = 4
 
 
 class ArticleNotFoundException(Exception):

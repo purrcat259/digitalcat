@@ -18,6 +18,15 @@ def run_setup():
     max_page_count = article_database.get_page_count()
 
 
+def get_page_data(current_page):
+    return {
+        'current_page': current_page,
+        'max_page': max_page_count,
+        'has_previous': current_page > 1,
+        'has_next': current_page < max_page_count
+    }
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
@@ -29,7 +38,12 @@ def index(page_number=1):
     if page_number > max_page_count:
         page_number = max_page_count
     paginated_articles = article_database.get_paginated_articles(page_number)
-    return render_template('article_list.html', page_title='Digitalcat Homepage', articles=paginated_articles)
+    return render_template(
+        'article_list.html',
+        page_title='Digitalcat Homepage',
+        articles=paginated_articles,
+        page_data=get_page_data(page_number)
+    )
 
 
 @app.route('/article/<article_url_name>')

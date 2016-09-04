@@ -9,20 +9,18 @@
                 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
                 <link rel="stylesheet" href="https://code.getmdl.io/1.2.0/material.blue-indigo.min.css" />
                 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
-                <link href="{{ url_for('static', filename='hover.css') }}" rel="stylesheet" media="all">
                 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
             {% endblock %}
             <!-- JS Files -->
             {% block global_js %}
                 <script defer src="https://code.getmdl.io/1.2.0/material.min.js"></script>
-                <script src="https://use.fontawesome.com/45c6f2d161.js"></script>
             {% endblock %}
             <!-- favicon -->
             {% block favicon %}
                 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
             {% endblock %}
             <title>
-                {% block title %}
+                {% block page_title %}
                     Digitalcat
                 {% endblock %}
             </title>
@@ -72,6 +70,8 @@
                         </div>
                         {% block extra_rows %}
                         {% endblock %}
+                    {% endblock %}
+                    {% block page_extra_content %}
                     {% endblock %}
                 </main>
             </div>

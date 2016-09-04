@@ -17,3 +17,7 @@ a {
   background-color: #77BEF5;
   margin-bottom: 15px;
 }
+
+.pagination_icon {
+  font-size: 400%;
+}
