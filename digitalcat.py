@@ -1,5 +1,5 @@
 from db import article_database
-from flask import Flask, render_template, send_from_directory, Markup
+from flask import Flask, render_template, send_from_directory, redirect
 
 app = Flask(__name__)
 
@@ -16,6 +16,11 @@ def get_article_data(article_url_name):
     return None
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+
 @app.route('/')
 def index():
     return render_template('article_list.html', page_title='Digitalcat Homepage', articles=articles)
@@ -24,7 +29,10 @@ def index():
 @app.route('/article/<article_url_name>')
 def article(article_url_name):
     # article = get_article_data(article_url_name=article_url_name)
-    article = article_database.get_specific_article(article_url_name=article_url_name)
+    try:
+        article = article_database.get_specific_article(article_url_name=article_url_name)
+    except article_database.ArticleNotFoundException:
+        return redirect('page_not_found')
     return render_template('article.html', page_title='Article', article=article)
 
 

@@ -4,6 +4,10 @@ from neopysqlite.neopysqlite import Pysqlite
 db_path = os.path.join(os.getcwd(), 'db', 'articles.db')
 
 
+class ArticleNotFoundException(Exception):
+    pass
+
+
 def convert_db_row_to_dict(db_row):
     return {
         'id': db_row[0],
@@ -28,5 +32,8 @@ def get_specific_article(article_url_name):
     row = db.get_specific_rows(
             table='articles',
             filter_string='url_name == "{}"'.format(article_url_name))
+    # handle not finding an article
+    if not row:
+        raise ArticleNotFoundException
     return convert_db_row_to_dict(row[0])
 
