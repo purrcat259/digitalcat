@@ -47,19 +47,6 @@ media_folder = 'assets/'  # TODO: Fold into a config
 def get_file(filename):
     return send_from_directory(media_folder, filename, as_attachment=True)
 
-"""
-@app.route('/article/<title>')
-def article(title):
-    data = return_requested_data(data_type='article', title=title)
-    try:
-        text = Markup(markdown.markdown(data['contents']))
-    except KeyError:
-        text = 'Article not found, try another name?'
-    return render_template('item.html',
-                           title=title,
-                           item_type='article',
-                           text=text)
-"""
 
 if __name__ == '__main__':
     run_setup()
