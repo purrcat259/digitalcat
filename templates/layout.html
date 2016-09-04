@@ -35,18 +35,18 @@
                                 <span class="mdl-layout-title">Digitalcat</span>
                                 <div class="mdl-layout-spacer"></div>  <!-- Used for alignment -->
                                 <nav class="mdl-navigation mdl-layout--large-screen-only">
-                                    <a class="mdl-navigation__link" href="">Home</a>
+                                    <a class="mdl-navigation__link" href="{{ url_for('index', page_number=1) }}">Home</a>
                                     <a class="mdl-navigation__link" href="">About</a>
-                                    <a class="mdl-navigation__link" href="">GitHub</a>
+                                    <a class="mdl-navigation__link" href="https://github.com/purrcat259" target="_blank">GitHub</a>
                                 </nav>
                             </div>
                         </header>
                         <div class="mdl-layout__drawer">
                             <span class="mdl-layout-title">Digitalcat</span>
                             <nav class="mdl-navigation">
-                                <a class="mdl-navigation__link" href="">Home</a>
+                                <a class="mdl-navigation__link" href="{{ url_for('index', page_number=1) }}">Home</a>
                                 <a class="mdl-navigation__link" href="">About</a>
-                                <a class="mdl-navigation__link" href="">GitHub</a>
+                                <a class="mdl-navigation__link" href="https://github.com/purrcat259" target="_blank">GitHub</a>
                             </nav>
                         </div>
                 {% endblock %}
@@ -80,10 +80,10 @@
                     {% block footer %}
                         <footer class="mdl-mini-footer">
                             <div class="mdl-mini-footer__left-section">
-                            <div class="mdl-logo">Title</div>
                                 <ul class="mdl-mini-footer__link-list">
-                                    <li><a href="#">Help</a></li>
-                                    <li><a href="#">Privacy & Terms</a></li>
+                                    <li><a href="{{ url_for('index', page_number=1) }}">Home</a></li>
+                                    <li><a href="#">About</a></li>
+                                    <li><a href="https://github.com/purrcat259" target="_blank">GitHub</a></li>
                                 </ul>
                             </div>
                         </footer>
