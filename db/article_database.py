@@ -3,8 +3,6 @@ from neopysqlite.neopysqlite import Pysqlite
 
 db_path = os.path.join(os.getcwd(), 'db', 'articles.db')
 
-db = Pysqlite(database_name='Articles Database', database_file=db_path)
-
 
 def convert_db_row_to_dict(db_row):
     return {
@@ -17,8 +15,18 @@ def convert_db_row_to_dict(db_row):
 
 
 def get_all_articles():
+    db = Pysqlite(database_name='Articles Database', database_file=db_path)
     all_rows = db.get_all_rows(table='articles')
     converted_rows = [
         convert_db_row_to_dict(row) for row in all_rows
     ]
     return converted_rows
+
+
+def get_specific_article(article_url_name):
+    db = Pysqlite(database_name='Articles Database', database_file=db_path)
+    row = db.get_specific_rows(
+            table='articles',
+            filter_string='url_name == "{}"'.format(article_url_name))
+    return convert_db_row_to_dict(row[0])
+

@@ -23,7 +23,8 @@ def index():
 
 @app.route('/article/<article_url_name>')
 def article(article_url_name):
-    article = get_article_data(article_url_name=article_url_name)
+    # article = get_article_data(article_url_name=article_url_name)
+    article = article_database.get_specific_article(article_url_name=article_url_name)
     return render_template('article.html', page_title='Article', article=article)
 
 
