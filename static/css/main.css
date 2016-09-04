@@ -14,10 +14,10 @@ a {
 
 /* Article list page */
 .list-block {
-  padding: 5px;
+  padding: 0.5em;
   text-align: center;
   background-color: #77BEF5;
-  margin-bottom: 15px;
+  margin-bottom: 1em;
 }
 
 .pagination-block {
