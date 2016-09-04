@@ -5,9 +5,15 @@ app = Flask(__name__)
 
 debug_mode = True
 max_page_count = 0
+media_folder = 'assets/'  # TODO: Fold into a config
 
 
 def run_setup():
+    print('------------------------')
+    print('--- Starting website ---')
+    if debug_mode:
+        print('------ DEBUG MODE ------')
+    print('------------------------')
     global max_page_count
     max_page_count = article_database.get_page_count()
 
@@ -38,8 +44,6 @@ def article(article_url_name):
 @app.route('/contact')
 def contact():
     return render_template('contact.html', page_title='Digitalcat Contact')
-
-media_folder = 'assets/'  # TODO: Fold into a config
 
 
 # TODO: create a get_uploaded_image method that uses this, to keep it separate from serving other assets/images
