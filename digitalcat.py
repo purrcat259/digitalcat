@@ -3,7 +3,7 @@ from flask import Flask, render_template, send_from_directory, redirect
 
 app = Flask(__name__)
 
-debug_mode = True
+debug_mode = False
 max_page_count = 0
 media_folder = 'assets/'  # TODO: Fold into a config
 
@@ -16,6 +16,8 @@ def run_setup():
     print('------------------------')
     global max_page_count
     max_page_count = article_database.get_page_count()
+
+run_setup()
 
 
 def get_page_data(current_page):
@@ -67,7 +69,6 @@ def get_file(filename):
 
 
 if __name__ == '__main__':
-    run_setup()
     if debug_mode:
         app.run(host='127.0.0.1', port=9000, debug=True)
     else:
