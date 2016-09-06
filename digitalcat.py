@@ -1,11 +1,15 @@
+import logging
+from logging.handlers import RotatingFileHandler
 from db import article_database
-from flask import Flask, render_template, send_from_directory, redirect
+from flask import Flask, render_template, send_from_directory, redirect, request
+from time import time as current_time
 
 app = Flask(__name__)
 
 debug_mode = False
 max_page_count = 0
 media_folder = 'assets/'  # TODO: Fold into a config
+log_path = 'logs/website.log'
 
 
 def run_setup():
@@ -16,8 +20,18 @@ def run_setup():
     print('------------------------')
     global max_page_count
     max_page_count = article_database.get_page_count()
+    handler = RotatingFileHandler(log_path, maxBytes=1000000, backupCount=2)
+    handler.setLevel(logging.INFO)
+    app.logger.addHandler(handler)
 
-run_setup()
+
+def log_visit(route_name='', enter_time=0):
+    app.logger.info('{},{},{},{}'.format(
+        current_time(),
+        request.environ.get('HTTP_X_REAL_IP', request.remote_addr),
+        route_name,
+        current_time() - enter_time
+    ))
 
 
 def get_page_data(current_page):
@@ -37,9 +51,11 @@ def page_not_found(e):
 @app.route('/')
 @app.route('/<int:page_number>')
 def index(page_number=1):
+    enter_time = current_time()
     if page_number > max_page_count:
         page_number = max_page_count
     paginated_articles = article_database.get_paginated_articles(page_number)
+    log_visit(route_name='index_{}'.format(page_number), enter_time=enter_time)
     return render_template(
         'article_list.html',
         page_title='Digitalcat Homepage',
@@ -50,23 +66,16 @@ def index(page_number=1):
 
 @app.route('/article/<article_url_name>')
 def article(article_url_name):
+    enter_time = current_time()
     try:
         article = article_database.get_specific_article(article_url_name=article_url_name)
     except article_database.ArticleNotFoundException:
+        log_visit(route_name='article_404_{}'.format(article_url_name), enter_time=enter_time)
         return redirect('page_not_found')
+    log_visit(route_name='article_{}'.format(article_url_name), enter_time=enter_time)
     return render_template('article.html', page_title='Article', article=article)
 
-
-@app.route('/contact')
-def contact():
-    return render_template('contact.html', page_title='Digitalcat Contact')
-
-
-# TODO: create a get_uploaded_image method that uses this, to keep it separate from serving other assets/images
-@app.route('/assets/<path:filename>')
-def get_file(filename):
-    return send_from_directory(media_folder, filename, as_attachment=True)
-
+run_setup()
 
 if __name__ == '__main__':
     if debug_mode:
